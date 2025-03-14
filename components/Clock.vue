@@ -45,6 +45,6 @@ onMounted(() => {
 }
 
 .colon {
-    animation: blink 2s step-start infinite;
+    animation: blink 1.5s step-start infinite;
 }
 </style>

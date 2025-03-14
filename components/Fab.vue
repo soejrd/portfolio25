@@ -87,7 +87,7 @@ const active = ref(false);
             position: absolute;
             top: 11px;
             left: 11px;
-            transition: all 500ms cubic-bezier(0.68, -0.6, 0.32, 1.6);
+            transition: all 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
             opacity: 0;
             user-select: none;
             z-index: 0;
