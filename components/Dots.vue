@@ -183,8 +183,8 @@ const fragmentShaderSource = `
   uniform float u_noise_time_scale; // Scales u_time for noise animation (e.g., 60.0)
   
   uniform vec3 u_fillColor;         // Main circle color (RGB)
-  // REMOVED: uniform vec4 u_shadowColor;
-  // REMOVED: uniform float u_shadowBlur_px;
+  uniform float u_dot_opacity;      // Overall opacity for each dot
+  uniform float u_dot_spacing;      // Spacing between dots in the series (normalized to resDist)
 
   // --- New Uniforms for FBM noise ---
   // REMOVED: uniform int u_fractalOctaves; // Hardcoded to 2 below
@@ -295,20 +295,37 @@ const fragmentShaderSource = `
     vec3 finalColor = vec3(0.0);
     float finalAlpha = 0.0;
 
-    if (noiseVal > u_threshold) {
-      float radius = map(noiseVal, u_threshold, 1.0, 0.0, resDist / 4.0);
-      radius = max(0.0, radius); 
+    // Hardcoded number of dots (5) - unrolled loop for WebGL 1.0 compatibility
+    // Calculate offset for each dot based on its index (0 to 4)
+    // The center of the series will be at the original cellCenterPx
+    // (float(i) - float(num_dots - 1) / 2.0) will give:
+    // i=0: -2.0
+    // i=1: -1.0
+    // i=2:  0.0
+    // i=3:  1.0
+    // i=4:  2.0
+    const int NUM_DOTS = 5;
 
-      float distToCenter = distance(fragCoord, cellCenterPx);
-      float aa = 1.5 / min(u_resolution.x, u_resolution.y);
-      
-      float circleStrength = smoothstep(radius + aa, radius - aa, distToCenter);
-      
-      // --- Simplified color and alpha without shadow ---
-      finalColor = u_fillColor * circleStrength;
-      finalAlpha = circleStrength;
+    for (int i = 0; i < NUM_DOTS; ++i) {
+      float offset_y = (float(i) - float(NUM_DOTS - 1) / 2.0) * resDist * u_dot_spacing;
+      vec2 currentDotCenterPx = cellCenterPx + vec2(0.0, offset_y);
+
+      float distToCenter = distance(fragCoord, currentDotCenterPx);
+
+      if (noiseVal > u_threshold) {
+        float radius = map(noiseVal, u_threshold, 1.0, 0.0, resDist / 4.0);
+        radius = max(0.0, radius); 
+
+        float aa = 1.5 / min(u_resolution.x, u_resolution.y);
+        
+        float circleStrength = smoothstep(radius + aa, radius - aa, distToCenter);
+        
+        finalColor += u_fillColor * circleStrength * u_dot_opacity;
+        finalAlpha += circleStrength * u_dot_opacity;
+      }
     }
 
+    finalAlpha = min(finalAlpha, 1.0);
     gl_FragColor = vec4(finalColor, finalAlpha);
   }
 `;
@@ -345,6 +362,8 @@ function main() {
     const noiseFreqUniformLocation = gl.getUniformLocation(program, "u_noise_freq");
     const noiseTimeScaleUniformLocation = gl.getUniformLocation(program, "u_noise_time_scale");
     const fillColorUniformLocation = gl.getUniformLocation(program, "u_fillColor");
+    const dotOpacityUniformLocation = gl.getUniformLocation(program, "u_dot_opacity");
+    const dotSpacingUniformLocation = gl.getUniformLocation(program, "u_dot_spacing");
     
     const fractalLacunarityUniformLocation = gl.getUniformLocation(program, "u_fractalLacunarity");
     const fractalGainUniformLocation = gl.getUniformLocation(program, "u_fractalGain");
@@ -357,18 +376,21 @@ function main() {
     // ---- Define values for uniforms (from p5 sketch) ----
     const p5_res = 100.0;
     const p5_threshold = 0.5;
-    const p5_t_increment_per_frame = 2.0;
+    const p5_t_increment_per_frame = 1.0;
     const p5_approx_fps = 30.0; // Original sketch was targeting 30 FPS for t updates
     const noise_time_scale_factor = p5_t_increment_per_frame * p5_approx_fps; // So u_time * this = equivalent p5 't'
 
-    const noise_freq = 0.001;
+    const noise_freq = 0.0005;
     const fractal_gain = 1.0;
     const fractal_lacunarity = 3.0;
 
     // Colors (converted from HSL in p5 sketch)
     // Fill: HSL(282, 89%, 50%) -> RGB(136, 20, 207)
-    const fill_color_rgb = [136.0 / 255.0, 20.0 / 255.0, 207.0 / 255.0];
+    const fill_color_rgb = [170.0 / 255.0, 248.0 / 255.0, 255.0 / 255.0];
 
+    // New dot series parameters
+    const dot_spacing = 0.2; // Spacing between dots (0.0 = no space, 1.0 = one resDist apart)
+    const dot_opacity = 1; // Opacity of each individual dot
 
     // --- Render Loop ---
     function render(time) {
@@ -391,6 +413,8 @@ function main() {
         gl.uniform1f(noiseFreqUniformLocation, noise_freq);
         gl.uniform1f(noiseTimeScaleUniformLocation, noise_time_scale_factor);
         gl.uniform3fv(fillColorUniformLocation, fill_color_rgb);
+        gl.uniform1f(dotOpacityUniformLocation, dot_opacity);
+        gl.uniform1f(dotSpacingUniformLocation, dot_spacing);
 
         gl.uniform1f(fractalLacunarityUniformLocation, fractal_lacunarity);
         gl.uniform1f(fractalGainUniformLocation, fractal_gain);
