@@ -23,11 +23,11 @@
   </nav>
   <Fab />
   <main>
-    <section id="section-0">
-      <!-- <Dots /> -->
+    <section id="section-hero">
+      <Dots />
       <div class="container">
         <div class="hero">
-          <h1 class="h1">Ik ontwerp apps met <b>kwaliteit</b> waar je <b>blij</b> van wordt.</h1>
+          <h1 class="h1">Ik ontwerp apps met <em>kwaliteit</em> waar je <em>blij</em> van wordt.</h1>
           <p class="p-l">Gebruiksvriendelijke applicaties en interne systemen om effectiever digitale mankracht te
             kunnen
             leveren. Met <i>expertise</i>, <i>passie</i> en <i>techniek</i>.</p>
@@ -60,7 +60,8 @@
               </svg>
             </NuxtLink>
           </h2>
-          <p class="p-m">Wij helpen organisaties bij het ontwikkelen van digitale producten en strategieën die waarde toevoegen.</p>
+          <p class="p-m">Wij helpen organisaties bij het ontwikkelen van digitale producten en strategieën die waarde
+            toevoegen.</p>
         </div>
         <div class="sub">
           <ul>
@@ -121,13 +122,14 @@ $color-text-primary-color: #003270;
 body {
   margin: 0;
   padding: 0;
+  font-family: 'Geist', sans-serif;
 }
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Geist, sans-serif;
+  //font-family: 'Geist', sans-serif;
 }
 
 section {
@@ -143,22 +145,33 @@ section {
   padding-right: 16px;
 }
 
-.h1 {
+h1 {
+  font-style: normal;
+  font-weight: 375;
   font-size: 74px;
-  font-weight: 400;
-  letter-spacing: -2px;
   line-height: 120%;
+  letter-spacing: -0.03em;
+
+  color: $color-text-primary;
+
+  em {
+    font-style: normal;
+    color: $color-text-primary-color;
+  }
+
 }
 
 .p-l {
-  font-size: 32px;
+  font-style: normal;
   font-weight: 300;
-  letter-spacing: 0;
-  line-height: 120%;
+  font-size: 32px;
+  line-height: 42px;
+
+  color: #333333;
+
 }
 
 nav {
-  background-color: transparent;
   position: fixed;
   width: 100%;
   top: 16px;
@@ -170,26 +183,32 @@ nav {
 
   z-index: 99;
 
+
+
+
+
+
   .container {
     width: 100%;
     max-width: 1200px;
-    padding-left: 16px;
-    padding-right: 16px;
-    background-color: transparent;
     padding: 12px;
+    padding-left: 24px;
+    padding-right: 16px;
     border-radius: 120px;
-    //backdrop-filter: blur(4px);
 
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     transition: all 200ms ease-out;
-    //background-color: rgba(from #f2f2f2 r g b / 0.5);
+
+    background-color: rgba(107, 170, 191, 0.1);
+    box-shadow: 0px -1px 0px rgba(255, 255, 255, 0.3), 0px 1px 0px rgba(0, 0, 0, 0.02);
+    backdrop-filter: blur(4px);
+
 
     &:hover {
-      backdrop-filter: blur(4px);
-      background-color: rgba(from #f2f2f2 r g b / 0.5);
+      backdrop-filter: blur(6px);
     }
 
     a {
@@ -236,9 +255,11 @@ nav {
   }
 }
 
-#section-0 {
+#section-hero {
   height: 100vh;
-  background-color: #f2f2f2;
+
+background: linear-gradient(0deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), linear-gradient(180deg, #EFF1F1 15.85%, #D9DBDD 86.56%);
+
 
   .hero {
     display: flex;
@@ -246,6 +267,8 @@ nav {
     gap: 32px;
     z-index: 1;
     position: relative;
+
+
   }
 }
 
@@ -284,12 +307,7 @@ nav {
 }
 
 #section-ervaring {
-
-
   background: linear-gradient(0deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), linear-gradient(180deg, #B3B5B5 50%, #D9DBDD 100%);
-
-
-
 
   .container {
     display: flex;
@@ -331,13 +349,11 @@ nav {
 
       p {
         font-style: normal;
-        font-weight: 400;
+        font-weight: 300;
         font-size: 24px;
         line-height: 130%;
         letter-spacing: -0.02em;
         color: #6C7176;
-
-
       }
     }
 
@@ -371,7 +387,7 @@ nav {
               }
 
               &#img-clutch {
-                box-shadow: 0px 4px 16px rgba(0, 0, 255, 0.2);
+                box-shadow: 0px 4px 16px rgba(0, 0, 255, 0.15);
               }
 
               &#img-endeavour {

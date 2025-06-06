@@ -62,14 +62,12 @@ const props = defineProps({
 a {
     text-decoration: none;
     width: fit-content;
-    //color: #333333;
     position: relative;
     z-index: 10;
 }
 
 .button {
     width: fit-content;
-    background-color: white;
     border-radius: 128px;
     display: flex;
     flex-direction: row;
@@ -91,11 +89,18 @@ a {
         width: 100%;
         height: 100%;
         border-radius: 128px;
-        background: linear-gradient(117.02deg, #FAFAFA 26.19%, #F5F5F5 66.89%);
-        box-shadow: inset 1px 1px 1px white, inset -1px -1px 1px rgba(0, 0, 0, .1), 8px 8px 8px rgba(0, 0, 0, 0.05);
+
+    
+        //box-shadow: inset 1px 1px 1px white, inset -1px -1px 1px rgba(0, 0, 0, .1), 8px 8px 8px rgba(0, 0, 0, 0.05);
 
         z-index: -1;
         transition: all 100ms ease-out;
+
+  background: linear-gradient(white, white) padding-box,
+              conic-gradient(from 90deg at 50% 50%, #7B7B7B 0deg,#FFFFFF 30.28deg, #FFFFFF 107.79deg, #7C7C7C 185.05deg, #F9F9F9 210.6deg, #F9F9F9 327.05deg, #7B7B7B 360deg) border-box;
+  border: 1px solid transparent;
+
+
 
     }
 
@@ -123,15 +128,13 @@ a {
 
     .text {
         font-style: normal;
+        line-height: 22px;
+
         font-weight: 500;
         font-size: 18px;
-        line-height: 22px;
-        color: #333333;
-        background-color: #565656;
-        text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.9);
-        -webkit-background-clip: text;
-        -moz-background-clip: text;
-        background-clip: text;
+        line-height: 23px;
+        color: #000000;
+
     }
 
     .linkedin {
@@ -140,41 +143,54 @@ a {
 
     }
 
-    &::before {
+    // &::before {
+    //     content: '';
+    //     position: absolute;
+    //     top: 0px;
+    //     left: 0;
+    //     width: 100%;
+    //     height: 100%;
+    //     background-color: transparent;
+    //     box-shadow: inset -2px -2px 8px rgba(0, 0, 0, 0.3);
+    //     z-index: -2;
+    //     border-radius: 128px;
+    //     transition: all 100ms ease-out;
+    //     //opacity: 0;
+    // }
+
+    &:before {
+        $border: 1px;
         content: '';
         position: absolute;
-        top: 0px;
+        top: 0;
+        right: 0;
+        bottom: 0;
         left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: transparent;
-        box-shadow: inset -2px -2px 8px rgba(0, 0, 0, 0.3);
-        z-index: -2;
-        border-radius: 128px;
-        transition: all 100ms ease-out;
-        //opacity: 0;
+        z-index: -1;
+        margin: -$border;
+        //background: conic-gradient(from 91.02deg at 50.78% 28.21%, #7B7B7B 0deg, #7C7C7C 32.12deg, #FFFFFF 60.28deg, #FFFFFF 107.79deg, #7C7C7C 185.05deg, #F9F9F9 210.6deg, #F9F9F9 327.05deg, #7B7B7B 360deg);
     }
 
-    &:hover {
-        transform: translateY(-4px);
+    // &:hover {
+    //     transform: translateY(-4px);
 
-        .bg {
-            
-            box-shadow: inset 1px 1px 1px white, inset -1px -1px 1px rgba(0, 0, 0, .1), 8px 12px 8px rgba(0, 0, 0, 0.05);
-        }
+    //     .bg {
+    //         box-shadow: inset 1px 1px 1px white, inset -1px -1px 1px rgba(0, 0, 0, .1), 8px 12px 8px rgba(0, 0, 0, 0.05);
+    //     }
 
-        &::before {
-            transform: translateY(4px);
-        }
+    //     &::before {
+    //         transform: translateY(4px);
+    //     }
 
-    }
+    // }
 
     &:active {
         transform: translateY(2px);
         transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
         .bg {
             box-shadow: inset -1px -1px 1px white, inset 4px 4px 4px rgba(0, 0, 0, 0.1), 0px 0px 0px rgba(0, 0, 0, 0);
-            
+
         }
 
         &::before {
