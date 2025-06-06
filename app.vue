@@ -3,14 +3,20 @@
     <div class="container">
       <NuxtLink to="#">
         Linkedin
-        <svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg
+          width="13"
+          height="12"
+          viewBox="0 0 13 12"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
           <g opacity="0.3">
             <path
               d="M8.60016 4.41L3.94078 9.0825C3.83578 9.1875 3.71101 9.24 3.56646 9.24C3.42226 9.24 3.29766 9.1875 3.19266 9.0825C3.08766 8.9775 3.03516 8.85273 3.03516 8.70818C3.03516 8.56398 3.08766 8.43938 3.19266 8.33438L7.86516 3.675H3.87516C3.72641 3.675 3.60163 3.62477 3.50083 3.52432C3.40038 3.42352 3.35016 3.29875 3.35016 3.15C3.35016 3.00125 3.40038 2.87648 3.50083 2.77568C3.60163 2.67523 3.72641 2.625 3.87516 2.625H9.12516C9.27391 2.625 9.39851 2.67523 9.49896 2.77568C9.59976 2.87648 9.65016 3.00125 9.65016 3.15V8.4C9.65016 8.54875 9.59976 8.67335 9.49896 8.7738C9.39851 8.8746 9.27391 8.925 9.12516 8.925C8.97641 8.925 8.85181 8.8746 8.75136 8.7738C8.65056 8.67335 8.60016 8.54875 8.60016 8.4V4.41Z"
-              fill="black" />
+              fill="black"
+            />
           </g>
         </svg>
-
       </NuxtLink>
       <div class="meta">
         <div class="main">
@@ -27,20 +33,31 @@
       <Dots />
       <div class="container">
         <div class="hero">
-          <h1 class="h1">Ik ontwerp apps met <em>kwaliteit</em> waar je <em>blij</em> van wordt.</h1>
-          <p class="p-l">Gebruiksvriendelijke applicaties en interne systemen om effectiever digitale mankracht te
-            kunnen
-            leveren. Met <i>expertise</i>, <i>passie</i> en <i>techniek</i>.</p>
-          <Button :to="'https://www.linkedin.com/in/sjoerdklatser'">Let's connect</Button>
+          <h1 class="h1">
+            Ik ontwerp apps met <em>kwaliteit</em><br/> waar je <em>blij</em> van
+            wordt.
+          </h1>
+          <p class="p-l">
+            Gebruiksvriendelijke applicaties en interne systemen om effectiever
+            digitale mankracht te kunnen leveren. Met <i>expertise</i>,
+            <i>passie</i> en <i>techniek</i>.
+          </p>
+          <Button :to="'https://www.linkedin.com/in/sjoerdklatser'"
+            >Let's connect</Button
+          >
         </div>
       </div>
     </section>
     <section id="section-1">
       <div class="container">
         <div class="hero">
-          <h2 class="h2">Brede interesses met jke moeder lorem ipsum dolor sit amet.</h2>
-          <p class="p-m">Leverage the power of serverless architecture to deliver your lorem ipsum dolor moeder ja noe
-            euhef.</p>
+          <h2 class="h2">
+            Brede interesses met jke moeder lorem ipsum dolor sit amet.
+          </h2>
+          <p class="p-m">
+            Leverage the power of serverless architecture to deliver your lorem
+            ipsum dolor moeder ja noe euhef.
+          </p>
         </div>
         <Specs />
       </div>
@@ -48,30 +65,52 @@
     <section id="section-ervaring">
       <div class="container">
         <div class="main">
-          <h2 class="h2">Ik werk op dit moment bij
+          <h2 class="h2">
+            Ik werk op dit moment bij
             <NuxtLink to="#">
               Uselab
-              <svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg
+                width="13"
+                height="12"
+                viewBox="0 0 13 12"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
                 <g>
                   <path
                     d="M8.60016 4.41L3.94078 9.0825C3.83578 9.1875 3.71101 9.24 3.56646 9.24C3.42226 9.24 3.29766 9.1875 3.19266 9.0825C3.08766 8.9775 3.03516 8.85273 3.03516 8.70818C3.03516 8.56398 3.08766 8.43938 3.19266 8.33438L7.86516 3.675H3.87516C3.72641 3.675 3.60163 3.62477 3.50083 3.52432C3.40038 3.42352 3.35016 3.29875 3.35016 3.15C3.35016 3.00125 3.40038 2.87648 3.50083 2.77568C3.60163 2.67523 3.72641 2.625 3.87516 2.625H9.12516C9.27391 2.625 9.39851 2.67523 9.49896 2.77568C9.59976 2.87648 9.65016 3.00125 9.65016 3.15V8.4C9.65016 8.54875 9.59976 8.67335 9.49896 8.7738C9.39851 8.8746 9.27391 8.925 9.12516 8.925C8.97641 8.925 8.85181 8.8746 8.75136 8.7738C8.65056 8.67335 8.60016 8.54875 8.60016 8.4V4.41Z"
-                    fill="currentColor" />
+                    fill="currentColor"
+                  />
                 </g>
               </svg>
             </NuxtLink>
           </h2>
-          <p class="p-m">Wij helpen organisaties bij het ontwikkelen van digitale producten en strategieën die waarde
-            toevoegen.</p>
+          <p class="p-m">
+            Wij helpen organisaties bij het ontwikkelen van digitale producten
+            en strategieën die waarde toevoegen.
+          </p>
         </div>
         <div class="sub">
           <ul>
             <li class="job">
               <NuxtLink to="#">
-                <img src="/uselab.jpg" alt="" width="64px" height="64px" id="img-uselab">
+                <img
+                  src="/uselab.jpg"
+                  alt=""
+                  width="64px"
+                  height="64px"
+                  id="img-uselab"
+                />
                 <div class="text">
                   <h5>
                     Uselab
-                    <svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg
+                      width="8"
+                      height="8"
+                      viewBox="0 0 8 8"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
                       <rect width="8" height="8" rx="4" fill="#75DD88" />
                     </svg>
                   </h5>
@@ -82,7 +121,13 @@
             </li>
             <li class="job">
               <NuxtLink to="#">
-                <img src="/clutch.jpg" alt="" width="64px" height="64px" id="img-clutch">
+                <img
+                  src="/clutch.jpg"
+                  alt=""
+                  width="64px"
+                  height="64px"
+                  id="img-clutch"
+                />
                 <div class="text">
                   <h5>Clutch</h5>
                   <h6>Brand Designer</h6>
@@ -92,7 +137,13 @@
             </li>
             <li class="job">
               <NuxtLink to="#">
-                <img src="/endeavour.jpg" alt="" width="64px" height="64px" id="img-endeavour">
+                <img
+                  src="/endeavour.jpg"
+                  alt=""
+                  width="64px"
+                  height="64px"
+                  id="img-endeavour"
+                />
                 <div class="text">
                   <h5>Endeavour</h5>
                   <h6>Digital Designer</h6>
@@ -107,22 +158,23 @@
     <section id="section-3">
       <div class="container">
         <h3 class="h3">Geïnteresseerd?</h3>
-        <Button :to="'https://www.linkedin.com/in/sjoerdklatser'">Let's connect</Button>
+        <Button :to="'https://www.linkedin.com/in/sjoerdklatser'"
+          >Let's connect</Button
+        >
       </div>
     </section>
   </main>
 </template>
 
 <style lang="scss">
-$color-text-secondary: #6C7176;
-$color-text-primary: #131D28;
+$color-text-secondary: #6c7176;
+$color-text-primary: #131d28;
 $color-text-primary-color: #003270;
-
 
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Geist', sans-serif;
+  font-family: "Geist", sans-serif;
 }
 
 * {
@@ -158,7 +210,6 @@ h1 {
     font-style: normal;
     color: $color-text-primary-color;
   }
-
 }
 
 .p-l {
@@ -168,7 +219,6 @@ h1 {
   line-height: 42px;
 
   color: #333333;
-
 }
 
 nav {
@@ -182,11 +232,6 @@ nav {
   align-items: center;
 
   z-index: 99;
-
-
-
-
-
 
   .container {
     width: 100%;
@@ -202,13 +247,13 @@ nav {
     align-items: center;
     transition: all 200ms ease-out;
 
-    background-color: rgba(107, 170, 191, 0.1);
-    box-shadow: 0px -1px 0px rgba(255, 255, 255, 0.3), 0px 1px 0px rgba(0, 0, 0, 0.02);
-    backdrop-filter: blur(4px);
-
+    background-color: rgba(107, 170, 191, 0.05);
+    box-shadow: 0px -1px 0px rgba(255, 255, 255, 0.3),
+      0px 1px 0px rgba(0, 0, 0, 0.02);
+    backdrop-filter: blur(2px);
 
     &:hover {
-      backdrop-filter: blur(6px);
+      backdrop-filter: blur(4px);
     }
 
     a {
@@ -223,7 +268,7 @@ nav {
       transition: all 200ms ease-out;
 
       &:hover {
-        background: linear-gradient(#76A1E6, #76A1E6);
+        background: linear-gradient(#76a1e6, #76a1e6);
         background-size: 100% 1px;
         background-repeat: no-repeat;
         background-position: 0 100%;
@@ -258,8 +303,9 @@ nav {
 #section-hero {
   height: 100vh;
 
-background: linear-gradient(0deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), linear-gradient(180deg, #EFF1F1 15.85%, #D9DBDD 86.56%);
-
+  //background: linear-gradient(0deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), linear-gradient(180deg, #EFF1F1 15.85%, #D9DBDD 86.56%);
+  //background: linear-gradient(180deg, #f4f4f4 100%, #ff00ff 10%);
+  background: linear-gradient(180deg, #f4f4f4 50%, #e7e9ea 100%);
 
   .hero {
     display: flex;
@@ -267,13 +313,23 @@ background: linear-gradient(0deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 
     gap: 32px;
     z-index: 1;
     position: relative;
-
-
+  }
+  &::before {
+    content: "";
+    position: absolute;
+    bottom: -30vh;
+    left: 0;
+    width: 100vw;
+    height: 30vh;
+    background: linear-gradient(180deg, transparent 0%, #e7e9ea 100%);
+    z-index: 2;
   }
 }
 
 #section-1 {
   height: auto;
+  //background: linear-gradient(180deg, #f4f4f4 100%, #E7E9EA 50%);
+  background: linear-gradient(180deg, #e7e9ea 50%, #f4f4f4 100%);
 
   .hero {
     max-width: 580px;
@@ -281,16 +337,16 @@ background: linear-gradient(0deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 
     flex-direction: column;
     gap: 24px;
     margin-bottom: 64px;
+    z-index: 3;
+    position: relative;
 
     h2 {
-
       font-style: normal;
       font-weight: 700;
       font-size: 36px;
       line-height: 44px;
       text-align: center;
       color: #000000;
-
     }
 
     p {
@@ -300,14 +356,12 @@ background: linear-gradient(0deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 
       line-height: 25px;
       text-align: center;
       color: #808080;
-
     }
   }
-
 }
 
 #section-ervaring {
-  background: linear-gradient(0deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), linear-gradient(180deg, #B3B5B5 50%, #D9DBDD 100%);
+  background: linear-gradient(180deg, #f4f4f4 50%, #e7e9ea 100%);
 
   .container {
     display: flex;
@@ -321,19 +375,33 @@ background: linear-gradient(0deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 
       gap: 30px;
 
       h2 {
-
         font-style: normal;
         font-weight: 350;
         font-size: 64px;
         line-height: 77px;
         letter-spacing: -0.02em;
-        color: #131D28;
+        color: #131d28;
 
         a {
           color: #003270;
           text-decoration: none;
           font-weight: 350;
           position: relative;
+
+          background: linear-gradient(transparent, black);
+          background-size: 0% 2px;
+          background-repeat: no-repeat;
+          background-position: 0% 100%;
+          transition: all 150ms ease-out;
+          display: inline-block;
+
+          &:hover {
+            background: linear-gradient(#76a1e6, #003270);
+            background-size: 100% 2px;
+            background-repeat: no-repeat;
+            background-position: 0 100%;
+            transform: translateX(4px);
+          }
 
           svg {
             width: 24px;
@@ -353,7 +421,7 @@ background: linear-gradient(0deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 
         font-size: 24px;
         line-height: 130%;
         letter-spacing: -0.02em;
-        color: #6C7176;
+        color: #6c7176;
       }
     }
 
@@ -363,13 +431,13 @@ background: linear-gradient(0deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 
         flex-direction: column;
         gap: 32px;
 
-
         li.job {
           list-style: none;
           transition: all 100ms ease-out;
 
           &:hover {
-            transform: scale(1.03);
+            //transform: scale(1.02);
+            transform: translateX(4px);
           }
 
           a {
@@ -415,7 +483,7 @@ background: linear-gradient(0deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 
                 font-size: 14px;
                 font-weight: 400;
                 padding-bottom: 2px;
-                color: #131D28;
+                color: #131d28;
               }
 
               p {
@@ -445,6 +513,6 @@ background: linear-gradient(0deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 
 #section-3 {
   border-top: 1px solid red;
   height: 100vh;
-  background-color: #f2f2f2;
+  //background-color: #f2f2f2;
 }
 </style>

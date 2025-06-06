@@ -1,167 +1,8 @@
 <template>
-    <!-- <canvas id="dots-canvas" ref="canvas"></canvas> -->
-    <canvas id="gl-canvas" ref="canvas"></canvas>
-
+  <canvas id="gl-canvas" ref="canvas"></canvas>
 </template>
 
-<!-- <script setup>
-import FastNoiseLite from "fastnoise-lite";
-const devicePixelRatio = window.devicePixelRatio || 1;
-console.log(devicePixelRatio);
-
-const canvas = ref(null);
-
-let ctx;
-
-onMounted(() => {
-
-    const width = window.innerWidth;
-    const height = window.innerHeight;
-
-    canvas.value.width = width * devicePixelRatio;
-    canvas.value.height = height * devicePixelRatio;
-
-    ctx = canvas.value.getContext("2d");
-    ctx.imageSmoothingEnabled = true;
-    ctx.scale(devicePixelRatio, devicePixelRatio)
-
-
-
-    res = 100;
-    //resDist = canvas.value.offsetWidth / res
-    resDist = Math.max(width, height) / res;
-    isVisible = true;
-    ctx.fillStyle = 'hsl(from #BA41F3 h s 50 / 1)';
-
-    ctx.shadowColor = 'hsl(from #BA41F3 h s l / 0.5)';
-    ctx.shadowOffsetX = 0;
-    ctx.shadowOffsetY = 0;
-    ctx.shadowBlur = 16;
-
-
-
-    generateDots();
-    animate();
-})
-
-
-
-
-let dots = [];
-let res;
-let resDist;
-let threshold = 0.5;
-let t = 0;
-let isVisible;
-
-
-//---- image loading
-
-
-
-
-//---- noise settings
-
-let noise = new FastNoiseLite();
-noise.SetSeed(Math.random() * 1000)
-noise.SetNoiseType(FastNoiseLite.NoiseType.Perlin);
-noise.SetFrequency(0.001)
-noise.SetFractalType('FBm');
-noise.SetFractalOctaves(2);
-noise.SetFractalGain(1)
-noise.SetFractalLacunarity(3)
-
-// Constants for controlling frame rate
-const desiredFPS = 30; // Your desired frame rate (e.g., 30 FPS)
-const frameDuration = 1000 / desiredFPS; // Time per frame in milliseconds
-let lastFrameTime = 0;
-
-class Dot {
-    constructor(x, y) {
-        this.x = x * resDist;
-        this.y = y * resDist;
-        this.diameter = 0;
-        this.toRender = false;
-    }
-    update() {
-        if (this.x > canvas.value.width || this.y > canvas.value.height) {
-            return;
-        }
-        this.noise = (noise.GetNoise(this.x, this.y, t) + 1) / 2;
-        if (this.noise > threshold) {
-            this.diameter = map(this.noise, threshold, 1, 0, 1) * resDist / 2;
-            this.toRender = true;
-        } else {
-            this.diameter = 0;
-            this.toRender = false;
-        }
-    }
-}
-
-
-function generateDots() {
-    console.log('dots are being built..')
-    dots = [];
-    for (let x = 0; x < res; x++) {
-        dots[x] = [];
-        for (let y = 0; y < res; y++) {
-            dots[x][y] = new Dot(x, y);
-        }
-    }
-}
-
-function animate(timestamp) {
-    requestAnimationFrame(animate);
-    // if (window.innerWidth <= 500) {
-    //     return;
-    // }
-
-    // Calculate time elapsed since the last frame
-    const elapsed = timestamp - lastFrameTime;
-
-    // If not enough time has passed, skip this frame
-    if (elapsed < frameDuration) {
-        return;
-    }
-    if (isVisible) {
-        ctx.clearRect(0, 0, canvas.value.width, canvas.value.height); // Clear the canvas
-        const pi2 = Math.PI * 2;
-        ctx.beginPath();
-
-        for (let x = 0; x < res; x++) {
-            for (let y = 0; y < res; y++) {
-                dots[x][y].update();
-                if (dots[x][y].toRender) {
-                    let r1 = dots[x][y].diameter;
-                    let x1 = dots[x][y].x;
-                    let y1 = dots[x][y].y;
-
-                    ctx.moveTo(x1 + r1, y1);
-                    ctx.arc(x1, y1, r1, 0, pi2);
-
-                }
-            }
-        }
-        ctx.closePath();
-        ctx.fill();
-        t += 2;
-    }
-}
-
-
-function map(value, inMin, inMax, outMin, outMax) {
-    return (value - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
-}
-
-
-
-</script> -->
-
-
-
-
 <script setup>
-
 const vertexShaderSource = `
   attribute vec2 a_position;
 
@@ -182,7 +23,8 @@ const fragmentShaderSource = `
   uniform float u_noise_freq;       // Noise frequency (e.g., 0.001)
   uniform float u_noise_time_scale; // Scales u_time for noise animation (e.g., 60.0)
   
-  uniform vec3 u_fillColor;         // Main circle color (RGB)
+  //uniform vec3 u_fillColor;         // Main circle color (RGB)
+  uniform vec3 u_dotColors[5];      // Array of dot colors
   uniform float u_dot_opacity;      // Overall opacity for each dot
   uniform float u_dot_spacing;      // Spacing between dots in the series (normalized to resDist)
 
@@ -292,18 +134,9 @@ const fragmentShaderSource = `
     noiseVal = (noiseVal + 1.0) / 2.0; 
     noiseVal = clamp(noiseVal, 0.0, 1.0);
 
-    vec3 finalColor = vec3(0.0);
+    vec3 finalColor = vec3(1.0); //start with white
     float finalAlpha = 0.0;
 
-    // Hardcoded number of dots (5) - unrolled loop for WebGL 1.0 compatibility
-    // Calculate offset for each dot based on its index (0 to 4)
-    // The center of the series will be at the original cellCenterPx
-    // (float(i) - float(num_dots - 1) / 2.0) will give:
-    // i=0: -2.0
-    // i=1: -1.0
-    // i=2:  0.0
-    // i=3:  1.0
-    // i=4:  2.0
     const int NUM_DOTS = 5;
 
     for (int i = 0; i < NUM_DOTS; ++i) {
@@ -319,119 +152,176 @@ const fragmentShaderSource = `
         float aa = 1.5 / min(u_resolution.x, u_resolution.y);
         
         float circleStrength = smoothstep(radius + aa, radius - aa, distToCenter);
-        
-        finalColor += u_fillColor * circleStrength * u_dot_opacity;
-        finalAlpha += circleStrength * u_dot_opacity;
+        vec3 currentColor = u_dotColors[i];
+        vec3 dotColorMultiplier = mix(vec3(1.0), currentColor, circleStrength * u_dot_opacity);
+        finalColor *= dotColorMultiplier;
       }
     }
 
-    finalAlpha = min(finalAlpha, 1.0);
-    gl_FragColor = vec4(finalColor, finalAlpha);
+    //finalAlpha = min(finalAlpha, 1.0);
+    gl_FragColor = vec4(finalColor, 1.0);
   }
 `;
 
-
-
-const canvasRef = useTemplateRef('canvas')
-
-
+const canvasRef = useTemplateRef("canvas");
 
 function main() {
-    const canvas = canvasRef.value;
-    const gl = canvas.getContext('webgl');
-    if (!gl) {
-        console.error("WebGL is not supported.");
-        return;
-    }
+  const canvas = canvasRef.value;
+  const gl = canvas.getContext("webgl");
+  if (!gl) {
+    console.error("WebGL is not supported.");
+    return;
+  }
 
-    // ---- ENABLE ALPHA BLENDING ----
-    gl.enable(gl.BLEND);
-    gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA); 
+  // ---- ENABLE ALPHA BLENDING ----
+  gl.enable(gl.BLEND);
+  gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
 
-    const vertexShader = createShader(gl, gl.VERTEX_SHADER, vertexShaderSource);
-    const fragmentShader = createShader(gl, gl.FRAGMENT_SHADER, fragmentShaderSource);
-    const program = createProgram(gl, vertexShader, fragmentShader);
+  const vertexShader = createShader(gl, gl.VERTEX_SHADER, vertexShaderSource);
+  const fragmentShader = createShader(
+    gl,
+    gl.FRAGMENT_SHADER,
+    fragmentShaderSource
+  );
+  const program = createProgram(gl, vertexShader, fragmentShader);
 
-    const positionAttributeLocation = gl.getAttribLocation(program, "a_position");
-    const resolutionUniformLocation = gl.getUniformLocation(program, "u_resolution");
-    const timeUniformLocation = gl.getUniformLocation(program, "u_time");
+  const positionAttributeLocation = gl.getAttribLocation(program, "a_position");
+  const resolutionUniformLocation = gl.getUniformLocation(
+    program,
+    "u_resolution"
+  );
+  const timeUniformLocation = gl.getUniformLocation(program, "u_time");
 
-    // ---- Get new uniform locations ----
-    const resFloatUniformLocation = gl.getUniformLocation(program, "u_res_float");
-    const thresholdUniformLocation = gl.getUniformLocation(program, "u_threshold");
-    const noiseFreqUniformLocation = gl.getUniformLocation(program, "u_noise_freq");
-    const noiseTimeScaleUniformLocation = gl.getUniformLocation(program, "u_noise_time_scale");
-    const fillColorUniformLocation = gl.getUniformLocation(program, "u_fillColor");
-    const dotOpacityUniformLocation = gl.getUniformLocation(program, "u_dot_opacity");
-    const dotSpacingUniformLocation = gl.getUniformLocation(program, "u_dot_spacing");
-    
-    const fractalLacunarityUniformLocation = gl.getUniformLocation(program, "u_fractalLacunarity");
-    const fractalGainUniformLocation = gl.getUniformLocation(program, "u_fractalGain");
+  // ---- Get new uniform locations ----
+  const resFloatUniformLocation = gl.getUniformLocation(program, "u_res_float");
+  const thresholdUniformLocation = gl.getUniformLocation(
+    program,
+    "u_threshold"
+  );
+  const noiseFreqUniformLocation = gl.getUniformLocation(
+    program,
+    "u_noise_freq"
+  );
+  const noiseTimeScaleUniformLocation = gl.getUniformLocation(
+    program,
+    "u_noise_time_scale"
+  );
+  //const fillColorUniformLocation = gl.getUniformLocation(program, "u_fillColor");
+  const dotColorsUniformLocation = gl.getUniformLocation(
+    program,
+    "u_dotColors"
+  );
+  const dotOpacityUniformLocation = gl.getUniformLocation(
+    program,
+    "u_dot_opacity"
+  );
+  const dotSpacingUniformLocation = gl.getUniformLocation(
+    program,
+    "u_dot_spacing"
+  );
 
-    const positionBuffer = gl.createBuffer();
+  const fractalLacunarityUniformLocation = gl.getUniformLocation(
+    program,
+    "u_fractalLacunarity"
+  );
+  const fractalGainUniformLocation = gl.getUniformLocation(
+    program,
+    "u_fractalGain"
+  );
+
+  const positionBuffer = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+  const vertices = [-1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1];
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
+
+  // ---- Define values for uniforms (from p5 sketch) ----
+  const p5_res = 120.0;
+  const p5_threshold = 0.5;
+  const p5_t_increment_per_frame = 1.0;
+  const p5_approx_fps = 30.0; // Original sketch was targeting 30 FPS for t updates
+  const noise_time_scale_factor = p5_t_increment_per_frame * p5_approx_fps; // So u_time * this = equivalent p5 't'
+
+  const noise_freq = 0.0008;
+  const fractal_gain = 1.0;
+  const fractal_lacunarity = 3.0;
+
+  //const fill_color_rgb = [170.0 / 255.0, 248.0 / 255.0, 255.0 / 255.0];
+  const dot_colors_rgb = [
+    175 / 255,
+    255 / 255,
+    243 / 255, // Dot 0
+    175 / 255,
+    255 / 255,
+    243 / 255, // Dot 1
+    217 / 255,
+    223 / 255,
+    255 / 255, // Dot 2
+    170 / 255,
+    248 / 255,
+    255 / 255, // Dot 3
+    218 / 255,
+    223 / 255,
+    248 / 255, // Dot 4
+  ];
+
+  // New dot series parameters
+  const dot_spacing = 0.2; // Spacing between dots (0.0 = no space, 1.0 = one resDist apart)
+  const dot_opacity = 1; // Opacity of each individual dot
+
+  // --- Render Loop ---
+  function render(time) {
+    time *= 0.000002; // convert time to seconds
+
+    resizeCanvasToDisplaySize(gl.canvas);
+    gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
+
+    //gl.clearColor(0, 0, 0, 0); // Clear to transparent black
+    gl.clearColor(1.0, 1.0, 1.0, 1.0); //clear to transparent white
+    gl.clear(gl.COLOR_BUFFER_BIT);
+
+    gl.useProgram(program);
+
+    gl.uniform2f(resolutionUniformLocation, gl.canvas.width, gl.canvas.height);
+    gl.uniform1f(timeUniformLocation, time);
+
+    // ---- Set new uniforms ----
+    gl.uniform1f(resFloatUniformLocation, p5_res);
+    gl.uniform1f(thresholdUniformLocation, p5_threshold);
+    gl.uniform1f(noiseFreqUniformLocation, noise_freq);
+    gl.uniform1f(noiseTimeScaleUniformLocation, noise_time_scale_factor);
+    //gl.uniform3fv(fillColorUniformLocation, fill_color_rgb);
+    gl.uniform3fv(dotColorsUniformLocation, dot_colors_rgb);
+    gl.uniform1f(dotOpacityUniformLocation, dot_opacity);
+    gl.uniform1f(dotSpacingUniformLocation, dot_spacing);
+
+    gl.uniform1f(fractalLacunarityUniformLocation, fractal_lacunarity);
+    gl.uniform1f(fractalGainUniformLocation, fractal_gain);
+
+    gl.enableVertexAttribArray(positionAttributeLocation);
     gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-    const vertices = [-1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1];
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
+    const size = 2;
+    const type = gl.FLOAT;
+    const normalize = false;
+    const stride = 0;
+    const offset = 0;
+    gl.vertexAttribPointer(
+      positionAttributeLocation,
+      size,
+      type,
+      normalize,
+      stride,
+      offset
+    );
 
-    // ---- Define values for uniforms (from p5 sketch) ----
-    const p5_res = 100.0;
-    const p5_threshold = 0.5;
-    const p5_t_increment_per_frame = 1.0;
-    const p5_approx_fps = 30.0; // Original sketch was targeting 30 FPS for t updates
-    const noise_time_scale_factor = p5_t_increment_per_frame * p5_approx_fps; // So u_time * this = equivalent p5 't'
-
-    const noise_freq = 0.0005;
-    const fractal_gain = 1.0;
-    const fractal_lacunarity = 3.0;
-
-    // Colors (converted from HSL in p5 sketch)
-    // Fill: HSL(282, 89%, 50%) -> RGB(136, 20, 207)
-    const fill_color_rgb = [170.0 / 255.0, 248.0 / 255.0, 255.0 / 255.0];
-
-    // New dot series parameters
-    const dot_spacing = 0.2; // Spacing between dots (0.0 = no space, 1.0 = one resDist apart)
-    const dot_opacity = 1; // Opacity of each individual dot
-
-    // --- Render Loop ---
-    function render(time) {
-        time *= 0.000005;  // convert time to seconds
-
-        resizeCanvasToDisplaySize(gl.canvas);
-        gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
-
-        gl.clearColor(0, 0, 0, 0); // Clear to transparent black
-        gl.clear(gl.COLOR_BUFFER_BIT);
-
-        gl.useProgram(program);
-
-        gl.uniform2f(resolutionUniformLocation, gl.canvas.width, gl.canvas.height);
-        gl.uniform1f(timeUniformLocation, time);
-
-        // ---- Set new uniforms ----
-        gl.uniform1f(resFloatUniformLocation, p5_res);
-        gl.uniform1f(thresholdUniformLocation, p5_threshold);
-        gl.uniform1f(noiseFreqUniformLocation, noise_freq);
-        gl.uniform1f(noiseTimeScaleUniformLocation, noise_time_scale_factor);
-        gl.uniform3fv(fillColorUniformLocation, fill_color_rgb);
-        gl.uniform1f(dotOpacityUniformLocation, dot_opacity);
-        gl.uniform1f(dotSpacingUniformLocation, dot_spacing);
-
-        gl.uniform1f(fractalLacunarityUniformLocation, fractal_lacunarity);
-        gl.uniform1f(fractalGainUniformLocation, fractal_gain);
-
-
-        gl.enableVertexAttribArray(positionAttributeLocation);
-        gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-        const size = 2; const type = gl.FLOAT; const normalize = false; const stride = 0; const offset = 0;
-        gl.vertexAttribPointer(positionAttributeLocation, size, type, normalize, stride, offset);
-
-        const primitiveType = gl.TRIANGLES; const drawOffset = 0; const count = 6;
-        gl.drawArrays(primitiveType, drawOffset, count);
-
-        requestAnimationFrame(render);
-    }
+    const primitiveType = gl.TRIANGLES;
+    const drawOffset = 0;
+    const count = 6;
+    gl.drawArrays(primitiveType, drawOffset, count);
 
     requestAnimationFrame(render);
+  }
+
+  requestAnimationFrame(render);
 }
 
 // --- Helper Functions ---
@@ -444,20 +334,18 @@ function main() {
  * @returns {WebGLShader} The created shader.
  */
 
-
- 
 function createShader(gl, type, source) {
-    const shader = gl.createShader(type);
-    gl.shaderSource(shader, source);
-    gl.compileShader(shader);
-    const success = gl.getShaderParameter(shader, gl.COMPILE_STATUS);
-    if (success) {
-        return shader;
-    }
-    // Log error if compilation fails
-    console.error(`Error compiling shader type ${type}:`);
-    console.error(gl.getShaderInfoLog(shader));
-    gl.deleteShader(shader);
+  const shader = gl.createShader(type);
+  gl.shaderSource(shader, source);
+  gl.compileShader(shader);
+  const success = gl.getShaderParameter(shader, gl.COMPILE_STATUS);
+  if (success) {
+    return shader;
+  }
+  // Log error if compilation fails
+  console.error(`Error compiling shader type ${type}:`);
+  console.error(gl.getShaderInfoLog(shader));
+  gl.deleteShader(shader);
 }
 
 /**
@@ -468,18 +356,18 @@ function createShader(gl, type, source) {
  * @returns {WebGLProgram} The created program.
  */
 function createProgram(gl, vertexShader, fragmentShader) {
-    const program = gl.createProgram();
-    gl.attachShader(program, vertexShader);
-    gl.attachShader(program, fragmentShader);
-    gl.linkProgram(program);
-    const success = gl.getProgramParameter(program, gl.LINK_STATUS);
-    if (success) {
-        return program;
-    }
-    // Log error if linking fails
-    console.error("Error linking program:");
-    console.error(gl.getProgramInfoLog(program));
-    gl.deleteProgram(program);
+  const program = gl.createProgram();
+  gl.attachShader(program, vertexShader);
+  gl.attachShader(program, fragmentShader);
+  gl.linkProgram(program);
+  const success = gl.getProgramParameter(program, gl.LINK_STATUS);
+  if (success) {
+    return program;
+  }
+  // Log error if linking fails
+  console.error("Error linking program:");
+  console.error(gl.getProgramInfoLog(program));
+  gl.deleteProgram(program);
 }
 
 /**
@@ -489,46 +377,45 @@ function createProgram(gl, vertexShader, fragmentShader) {
  * @returns {boolean} true if the canvas was resized.
  */
 function resizeCanvasToDisplaySize(canvas) {
-    const dpr = window.devicePixelRatio || 1;
+  const dpr = window.devicePixelRatio || 1;
 
-    // Get the size the browser is displaying the canvas in CSS pixels.
-    const displayWidthCSS  = canvas.clientWidth;
-    const displayHeightCSS = canvas.clientHeight;
+  // Get the size the browser is displaying the canvas in CSS pixels.
+  const displayWidthCSS = canvas.clientWidth;
+  const displayHeightCSS = canvas.clientHeight;
 
-    // Calculate the actual number of pixels the canvas drawing buffer should have.
-    const targetWidthPhysical = Math.round(displayWidthCSS * dpr);
-    const targetHeightPhysical = Math.round(displayHeightCSS * dpr);
+  // Calculate the actual number of pixels the canvas drawing buffer should have.
+  const targetWidthPhysical = Math.round(displayWidthCSS * dpr);
+  const targetHeightPhysical = Math.round(displayHeightCSS * dpr);
 
-    // Check if the canvas's drawing buffer size is different from the target.
-    if (canvas.width  !== targetWidthPhysical ||
-        canvas.height !== targetHeightPhysical) {
-        
-        // Make the canvas drawing buffer the same size as the physical pixels.
-        canvas.width  = targetWidthPhysical;
-        canvas.height = targetHeightPhysical;
-        return true;
-    }
-    return false;
+  // Check if the canvas's drawing buffer size is different from the target.
+  if (
+    canvas.width !== targetWidthPhysical ||
+    canvas.height !== targetHeightPhysical
+  ) {
+    // Make the canvas drawing buffer the same size as the physical pixels.
+    canvas.width = targetWidthPhysical;
+    canvas.height = targetHeightPhysical;
+    return true;
+  }
+  return false;
 }
 
 // Run the main function when the document is ready.
 
 onMounted(() => {
-    main();
-})
-
-
-
-
+  main();
+});
 </script>
 
 <style lang="scss" scoped>
 #gl-canvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 0;
-    width: 100vw;
-    height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  width: 100vw;
+  height: 130vh;
+  mix-blend-mode: multiply;
+  opacity: 0.5;
 }
 </style>
