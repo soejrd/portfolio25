@@ -239,11 +239,17 @@ function main() {
   const p5_threshold = 0.5;
   const p5_t_increment_per_frame = 1.0;
   const p5_approx_fps = 30.0; // Original sketch was targeting 30 FPS for t updates
-  const noise_time_scale_factor = p5_t_increment_per_frame * p5_approx_fps; // So u_time * this = equivalent p5 't'
+  //const noise_time_scale_factor = p5_t_increment_per_frame * p5_approx_fps; // So u_time * this = equivalent p5 't'
+  const noise_time_scale_factor = p5_t_increment_per_frame * p5_approx_fps;
 
-  const noise_freq = 0.0008;
-  const fractal_gain = 1.0;
+  //const noise_freq = 0.0008;
+  const noise_freq = 0.0004;
+
+  //const fractal_gain = 1.0;
+  const fractal_gain = 1;
+
   const fractal_lacunarity = 3.0;
+
 
   //const fill_color_rgb = [170.0 / 255.0, 248.0 / 255.0, 255.0 / 255.0];
   const dot_colors_rgb = [
@@ -270,7 +276,7 @@ function main() {
 
   // --- Render Loop ---
   function render(time) {
-    time *= 0.000002; // convert time to seconds
+    time *= 0.000005; // convert time to seconds
 
     resizeCanvasToDisplaySize(gl.canvas);
     gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
@@ -320,7 +326,6 @@ function main() {
 
     requestAnimationFrame(render);
   }
-
   requestAnimationFrame(render);
 }
 
@@ -414,8 +419,8 @@ onMounted(() => {
   left: 0;
   z-index: 0;
   width: 100vw;
-  height: 130vh;
+  min-height: 130vh;
   mix-blend-mode: multiply;
-  opacity: 0.5;
+  opacity: 0.7;
 }
 </style>
