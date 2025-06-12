@@ -46,6 +46,7 @@ const active = ref(false);
     position: fixed;
     right: 50px;
     bottom: 50px;
+    z-index: 99;
 
     &-inner {
         width: 48px;
@@ -91,6 +92,7 @@ const active = ref(false);
             opacity: 0;
             user-select: none;
             z-index: 0;
+            cursor:not-allowed;
 
             @for $i from 0 through 8 {
                 &:nth-child(#{$i}) {

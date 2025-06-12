@@ -1,6 +1,6 @@
 <template>
-    <NuxtLink :to=to target="_blank">
-        <div class="button">
+  <NuxtLink :to="to" target="_blank">
+    <!-- <div class="button">
             <div class="bg"></div>
             <div class="profile">
                 <div class="status"></div>
@@ -43,162 +43,436 @@
                     </defs>
                 </svg>
             </div>
-        </div>
-    </NuxtLink>
+        </div> -->
+    <div class="button2">
+      <div class="profile"></div>
+      <div class="text">
+        <slot></slot>
+      </div>
+      <svg
+        width="248"
+        height="64"
+        viewBox="0 0 248 64"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+      >
+        <mask id="path-1-inside-1_2332_184" fill="white">
+          <path
+            d="M0 32C0 14.3269 14.3269 0 32 0H216C233.673 0 248 14.3269 248 32C248 49.6731 233.673 64 216 64H32C14.3269 64 0 49.6731 0 32Z"
+          />
+        </mask>
+        <path
+          d="M0 32C0 14.3269 14.3269 0 32 0H216C233.673 0 248 14.3269 248 32C248 49.6731 233.673 64 216 64H32C14.3269 64 0 49.6731 0 32Z"
+          fill="white"
+          fill-opacity="0.5"
+        />
+        <g
+          clip-path="url(#paint0_angular_2332_184_clip_path)"
+          data-figma-skip-parse="true"
+          mask="url(#path-1-inside-1_2332_184)"
+        >
+          <g
+            transform="matrix(0.117085 0.000536314 -0.000104566 0.0302155 125.942 18.0559)"
+          >
+            <foreignObject
+              x="-1572.86"
+              y="-1572.86"
+              width="3145.72"
+              height="3145.72"
+            >
+              <div
+                xmlns="http://www.w3.org/1999/xhtml"
+                style="
+                  background: conic-gradient(
+                    from 90deg,
+                    rgba(123, 123, 123, 1) 0deg,
+                    rgba(124, 124, 124, 1) 32.1212deg,
+                    rgba(255, 255, 255, 1) 60.2813deg,
+                    rgba(255, 255, 255, 1) 107.788deg,
+                    rgba(124, 124, 124, 1) 185.045deg,
+                    rgba(249, 249, 249, 1) 210.6deg,
+                    rgba(249, 249, 249, 1) 327.047deg,
+                    rgba(123, 123, 123, 1) 360deg
+                  );
+                  height: 100%;
+                  width: 100%;
+                  opacity: 1;
+                "
+              ></div>
+            </foreignObject>
+          </g>
+        </g>
+        <path
+          d="M32 0V1H216V0V-1H32V0ZM216 64V63H32V64V65H216V64ZM32 64V63C14.8792 63 1 49.1208 1 32H0H-1C-1 50.2254 13.7746 65 32 65V64ZM248 32H247C247 49.1208 233.121 63 216 63V64V65C234.225 65 249 50.2254 249 32H248ZM216 0V1C233.121 1 247 14.8792 247 32H248H249C249 13.7746 234.225 -1 216 -1V0ZM32 0V-1C13.7746 -1 -1 13.7746 -1 32H0H1C1 14.8792 14.8792 1 32 1V0Z"
+          data-figma-gradient-fill="{&#34;type&#34;:&#34;GRADIENT_ANGULAR&#34;,&#34;stops&#34;:[{&#34;color&#34;:{&#34;r&#34;:0.48627451062202454,&#34;g&#34;:0.48627451062202454,&#34;b&#34;:0.48627451062202454,&#34;a&#34;:1.0},&#34;position&#34;:0.089225620031356812},{&#34;color&#34;:{&#34;r&#34;:1.0,&#34;g&#34;:1.0,&#34;b&#34;:1.0,&#34;a&#34;:1.0},&#34;position&#34;:0.16744795441627502},{&#34;color&#34;:{&#34;r&#34;:1.0,&#34;g&#34;:1.0,&#34;b&#34;:1.0,&#34;a&#34;:1.0},&#34;position&#34;:0.29941025376319885},{&#34;color&#34;:{&#34;r&#34;:0.48627451062202454,&#34;g&#34;:0.48627451062202454,&#34;b&#34;:0.48627451062202454,&#34;a&#34;:1.0},&#34;position&#34;:0.51401406526565552},{&#34;color&#34;:{&#34;r&#34;:0.97647058963775635,&#34;g&#34;:0.97647058963775635,&#34;b&#34;:0.97647058963775635,&#34;a&#34;:1.0},&#34;position&#34;:0.58499997854232788},{&#34;color&#34;:{&#34;r&#34;:0.97647058963775635,&#34;g&#34;:0.97647058963775635,&#34;b&#34;:0.97647058963775635,&#34;a&#34;:1.0},&#34;position&#34;:0.90846514701843262},{&#34;color&#34;:{&#34;r&#34;:0.48235294222831726,&#34;g&#34;:0.48235294222831726,&#34;b&#34;:0.48235294222831726,&#34;a&#34;:1.0},&#34;position&#34;:1.0}],&#34;stopsVar&#34;:[{&#34;color&#34;:{&#34;r&#34;:0.48627451062202454,&#34;g&#34;:0.48627451062202454,&#34;b&#34;:0.48627451062202454,&#34;a&#34;:1.0},&#34;position&#34;:0.089225620031356812},{&#34;color&#34;:{&#34;r&#34;:1.0,&#34;g&#34;:1.0,&#34;b&#34;:1.0,&#34;a&#34;:1.0},&#34;position&#34;:0.16744795441627502},{&#34;color&#34;:{&#34;r&#34;:1.0,&#34;g&#34;:1.0,&#34;b&#34;:1.0,&#34;a&#34;:1.0},&#34;position&#34;:0.29941025376319885},{&#34;color&#34;:{&#34;r&#34;:0.48627451062202454,&#34;g&#34;:0.48627451062202454,&#34;b&#34;:0.48627451062202454,&#34;a&#34;:1.0},&#34;position&#34;:0.51401406526565552},{&#34;color&#34;:{&#34;r&#34;:0.97647058963775635,&#34;g&#34;:0.97647058963775635,&#34;b&#34;:0.97647058963775635,&#34;a&#34;:1.0},&#34;position&#34;:0.58499997854232788},{&#34;color&#34;:{&#34;r&#34;:0.97647058963775635,&#34;g&#34;:0.97647058963775635,&#34;b&#34;:0.97647058963775635,&#34;a&#34;:1.0},&#34;position&#34;:0.90846514701843262},{&#34;color&#34;:{&#34;r&#34;:0.48235294222831726,&#34;g&#34;:0.48235294222831726,&#34;b&#34;:0.48235294222831726,&#34;a&#34;:1.0},&#34;position&#34;:1.0}],&#34;transform&#34;:{&#34;m00&#34;:234.17044067382812,&#34;m01&#34;:-0.20913206040859222,&#34;m02&#34;:8.9616947174072266,&#34;m10&#34;:1.0726273059844971,&#34;m11&#34;:60.431079864501953,&#34;m12&#34;:-12.695988655090332},&#34;opacity&#34;:1.0,&#34;blendMode&#34;:&#34;NORMAL&#34;,&#34;visible&#34;:true}"
+          mask="url(#path-1-inside-1_2332_184)"
+        />
+        <g clip-path="url(#clip0_2332_184)">
+          <mask id="path-3-inside-2_2332_184" fill="white">
+            <path
+              d="M8 32C8 18.7452 18.7452 8 32 8C45.2548 8 56 18.7452 56 32C56 45.2548 45.2548 56 32 56C18.7452 56 8 45.2548 8 32Z"
+            />
+          </mask>
+          <path
+            d="M8 32C8 18.7452 18.7452 8 32 8C45.2548 8 56 18.7452 56 32C56 45.2548 45.2548 56 32 56C18.7452 56 8 45.2548 8 32Z"
+            fill="#90B6F5"
+          />
+          <path
+            d="M8 32C8 18.7452 18.7452 8 32 8C45.2548 8 56 18.7452 56 32C56 45.2548 45.2548 56 32 56C18.7452 56 8 45.2548 8 32Z"
+            fill="#858E98"
+          />
+          <mask
+            id="mask0_2332_184"
+            style="mask-type: alpha"
+            maskUnits="userSpaceOnUse"
+            x="-7"
+            y="-6"
+            width="78"
+            height="77"
+          >
+            <circle cx="32" cy="32.5" r="38.5" fill="#D9D9D9" />
+          </mask>
+          <g mask="url(#mask0_2332_184)">
+            <rect
+              x="-7"
+              y="8"
+              width="78"
+              height="111"
+              fill="url(#pattern0_2332_184)"
+            />
+          </g>
+        </g>
+        <g
+          clip-path="url(#paint1_angular_2332_184_clip_path)"
+          data-figma-skip-parse="true"
+          mask="url(#path-3-inside-2_2332_184)"
+        >
+          <g
+            transform="matrix(0.0226617 0.000402235 -2.02386e-05 0.0226617 32.3759 21.5419)"
+          >
+            <foreignObject
+              x="-1584.52"
+              y="-1584.52"
+              width="3169.05"
+              height="3169.05"
+            >
+              <div
+                xmlns="http://www.w3.org/1999/xhtml"
+                style="
+                  background: conic-gradient(
+                    from 90deg,
+                    rgba(123, 123, 123, 1) 0deg,
+                    rgba(124, 124, 124, 1) 32.1212deg,
+                    rgba(255, 255, 255, 1) 60.2813deg,
+                    rgba(255, 255, 255, 1) 107.788deg,
+                    rgba(124, 124, 124, 1) 185.045deg,
+                    rgba(249, 249, 249, 1) 210.6deg,
+                    rgba(249, 249, 249, 1) 327.047deg,
+                    rgba(123, 123, 123, 1) 360deg
+                  );
+                  height: 100%;
+                  width: 100%;
+                  opacity: 0.3;
+                "
+              ></div>
+            </foreignObject>
+          </g>
+        </g>
+        <path
+          d="M32 56V55C19.2975 55 9 44.7025 9 32H8H7C7 45.8071 18.1929 57 32 57V56ZM56 32H55C55 44.7025 44.7025 55 32 55V56V57C45.8071 57 57 45.8071 57 32H56ZM32 8V9C44.7025 9 55 19.2975 55 32H56H57C57 18.1929 45.8071 7 32 7V8ZM32 8V7C18.1929 7 7 18.1929 7 32H8H9C9 19.2975 19.2975 9 32 9V8Z"
+          data-figma-gradient-fill="{&#34;type&#34;:&#34;GRADIENT_ANGULAR&#34;,&#34;stops&#34;:[{&#34;color&#34;:{&#34;r&#34;:0.48627451062202454,&#34;g&#34;:0.48627451062202454,&#34;b&#34;:0.48627451062202454,&#34;a&#34;:1.0},&#34;position&#34;:0.089225620031356812},{&#34;color&#34;:{&#34;r&#34;:1.0,&#34;g&#34;:1.0,&#34;b&#34;:1.0,&#34;a&#34;:1.0},&#34;position&#34;:0.16744795441627502},{&#34;color&#34;:{&#34;r&#34;:1.0,&#34;g&#34;:1.0,&#34;b&#34;:1.0,&#34;a&#34;:1.0},&#34;position&#34;:0.29941025376319885},{&#34;color&#34;:{&#34;r&#34;:0.48627451062202454,&#34;g&#34;:0.48627451062202454,&#34;b&#34;:0.48627451062202454,&#34;a&#34;:1.0},&#34;position&#34;:0.51401406526565552},{&#34;color&#34;:{&#34;r&#34;:0.97647058963775635,&#34;g&#34;:0.97647058963775635,&#34;b&#34;:0.97647058963775635,&#34;a&#34;:1.0},&#34;position&#34;:0.58499997854232788},{&#34;color&#34;:{&#34;r&#34;:0.97647058963775635,&#34;g&#34;:0.97647058963775635,&#34;b&#34;:0.97647058963775635,&#34;a&#34;:1.0},&#34;position&#34;:0.90846514701843262},{&#34;color&#34;:{&#34;r&#34;:0.48235294222831726,&#34;g&#34;:0.48235294222831726,&#34;b&#34;:0.48235294222831726,&#34;a&#34;:1.0},&#34;position&#34;:1.0}],&#34;stopsVar&#34;:[{&#34;color&#34;:{&#34;r&#34;:0.48627451062202454,&#34;g&#34;:0.48627451062202454,&#34;b&#34;:0.48627451062202454,&#34;a&#34;:1.0},&#34;position&#34;:0.089225620031356812},{&#34;color&#34;:{&#34;r&#34;:1.0,&#34;g&#34;:1.0,&#34;b&#34;:1.0,&#34;a&#34;:1.0},&#34;position&#34;:0.16744795441627502},{&#34;color&#34;:{&#34;r&#34;:1.0,&#34;g&#34;:1.0,&#34;b&#34;:1.0,&#34;a&#34;:1.0},&#34;position&#34;:0.29941025376319885},{&#34;color&#34;:{&#34;r&#34;:0.48627451062202454,&#34;g&#34;:0.48627451062202454,&#34;b&#34;:0.48627451062202454,&#34;a&#34;:1.0},&#34;position&#34;:0.51401406526565552},{&#34;color&#34;:{&#34;r&#34;:0.97647058963775635,&#34;g&#34;:0.97647058963775635,&#34;b&#34;:0.97647058963775635,&#34;a&#34;:1.0},&#34;position&#34;:0.58499997854232788},{&#34;color&#34;:{&#34;r&#34;:0.97647058963775635,&#34;g&#34;:0.97647058963775635,&#34;b&#34;:0.97647058963775635,&#34;a&#34;:1.0},&#34;position&#34;:0.90846514701843262},{&#34;color&#34;:{&#34;r&#34;:0.48235294222831726,&#34;g&#34;:0.48235294222831726,&#34;b&#34;:0.48235294222831726,&#34;a&#34;:1.0},&#34;position&#34;:1.0}],&#34;transform&#34;:{&#34;m00&#34;:45.323310852050781,&#34;m01&#34;:-0.040477171540260315,&#34;m02&#34;:9.7345218658447266,&#34;m10&#34;:0.80447047948837280,&#34;m11&#34;:45.323310852050781,&#34;m12&#34;:-1.5219913721084595},&#34;opacity&#34;:0.30000001192092896,&#34;blendMode&#34;:&#34;NORMAL&#34;,&#34;visible&#34;:true}"
+          mask="url(#path-3-inside-2_2332_184)"
+        />
+        <g clip-path="url(#clip1_2332_184)">
+          <g filter="url(#filter1_i_2332_184)">
+            <path
+              d="M211.19 28.791H207.576C207.416 28.791 207.286 28.921 207.286 29.0813V40.6901C207.286 40.8504 207.416 40.9804 207.576 40.9804H211.19C211.35 40.9804 211.48 40.8504 211.48 40.6901V29.0813C211.48 28.921 211.35 28.791 211.19 28.791Z"
+              fill="#50A8B5"
+            />
+            <path
+              d="M209.384 23.0195C208.07 23.0195 207 24.088 207 25.4014C207 26.7153 208.07 27.7842 209.384 27.7842C210.698 27.7842 211.767 26.7153 211.767 25.4014C211.767 24.088 210.698 23.0195 209.384 23.0195Z"
+              fill="#50A8B5"
+            />
+            <path
+              d="M220.381 28.502C218.93 28.502 217.857 29.1259 217.206 29.8348V29.0808C217.206 28.9205 217.076 28.7905 216.916 28.7905H213.455C213.295 28.7905 213.165 28.9205 213.165 29.0808V40.6895C213.165 40.8499 213.295 40.9798 213.455 40.9798H217.061C217.221 40.9798 217.351 40.8499 217.351 40.6895V34.9459C217.351 33.0104 217.877 32.2564 219.226 32.2564C220.696 32.2564 220.812 33.4652 220.812 35.0455V40.6896C220.812 40.85 220.942 40.9799 221.103 40.9799H224.71C224.87 40.9799 225 40.85 225 40.6896V34.322C225 31.444 224.451 28.502 220.381 28.502Z"
+              fill="#50A8B5"
+            />
+          </g>
+        </g>
+        <defs>
+          <clipPath id="paint0_angular_2332_184_clip_path">
+            <path
+              d="M32 0V1H216V0V-1H32V0ZM216 64V63H32V64V65H216V64ZM32 64V63C14.8792 63 1 49.1208 1 32H0H-1C-1 50.2254 13.7746 65 32 65V64ZM248 32H247C247 49.1208 233.121 63 216 63V64V65C234.225 65 249 50.2254 249 32H248ZM216 0V1C233.121 1 247 14.8792 247 32H248H249C249 13.7746 234.225 -1 216 -1V0ZM32 0V-1C13.7746 -1 -1 13.7746 -1 32H0H1C1 14.8792 14.8792 1 32 1V0Z"
+              mask="url(#path-1-inside-1_2332_184)"
+            />
+          </clipPath>
+          <pattern
+            id="pattern0_2332_184"
+            patternContentUnits="objectBoundingBox"
+            width="1"
+            height="1"
+          >
+            <use
+              xlink:href="#image0_2332_184"
+              transform="matrix(0.00125 0 0 0.000878049 0 -0.0268293)"
+            />
+          </pattern>
+          <clipPath id="paint1_angular_2332_184_clip_path">
+            <path
+              d="M32 56V55C19.2975 55 9 44.7025 9 32H8H7C7 45.8071 18.1929 57 32 57V56ZM56 32H55C55 44.7025 44.7025 55 32 55V56V57C45.8071 57 57 45.8071 57 32H56ZM32 8V9C44.7025 9 55 19.2975 55 32H56H57C57 18.1929 45.8071 7 32 7V8ZM32 8V7C18.1929 7 7 18.1929 7 32H8H9C9 19.2975 19.2975 9 32 9V8Z"
+              mask="url(#path-3-inside-2_2332_184)"
+            />
+          </clipPath>
+          <filter
+            id="filter1_i_2332_184"
+            x="207"
+            y="23.0195"
+            width="19"
+            height="18.9609"
+            filterUnits="userSpaceOnUse"
+            color-interpolation-filters="sRGB"
+          >
+            <feFlood flood-opacity="0" result="BackgroundImageFix" />
+            <feBlend
+              mode="normal"
+              in="SourceGraphic"
+              in2="BackgroundImageFix"
+              result="shape"
+            />
+            <feColorMatrix
+              in="SourceAlpha"
+              type="matrix"
+              values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+              result="hardAlpha"
+            />
+            <feOffset dx="1" dy="1" />
+            <feGaussianBlur stdDeviation="1.5" />
+            <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
+            <feColorMatrix
+              type="matrix"
+              values="0 0 0 0 0 0 0 0 0 0.250989 0 0 0 0 0.652572 0 0 0 1 0"
+            />
+            <feBlend
+              mode="normal"
+              in2="shape"
+              result="effect1_innerShadow_2332_184"
+            />
+          </filter>
+          <clipPath id="clip0_2332_184">
+            <path
+              d="M8 32C8 18.7452 18.7452 8 32 8C45.2548 8 56 18.7452 56 32C56 45.2548 45.2548 56 32 56C18.7452 56 8 45.2548 8 32Z"
+              fill="white"
+            />
+          </clipPath>
+          <clipPath id="clip1_2332_184">
+            <rect
+              width="18"
+              height="18"
+              fill="white"
+              transform="translate(207 23)"
+            />
+          </clipPath>
+        </defs>
+      </svg>
+    </div>
+  </NuxtLink>
 </template>
 
 <script setup>
 const props = defineProps({
-    to: {
-        type: String,
-        default: '/',
-    }
-})
-
-
+  to: {
+    type: String,
+    default: "/",
+  },
+});
 </script>
 
 <style lang="scss" scoped>
 a {
-    text-decoration: none;
-    width: fit-content;
-    position: relative;
-    z-index: 10;
+  text-decoration: none;
+  width: fit-content;
+  position: relative;
+  z-index: 10;
+}
+
+.button2 {
+  backdrop-filter: blur(2px);
+  filter: drop-shadow(0px 16px 16px hsla(202, 40%, 55%, 0.2));
+  transition: all 200ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border-radius: 128px;
+  height: 64px;
+  &:hover {
+    filter: drop-shadow(0px 19px 24px hsla(202, 40%, 55%, 0.23));
+    transform: translateY(-3px);
+    background-color: hsla(0,0%,100%,0.3);
+  }
+  &:active {
+    transform: translateY(0px);
+  }
+
+  .profile {
+    width: 48px;
+    height: 48px;
+    border-radius: 128px;
+    background-image: url("profile.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: absolute;
+    left: 8px;
+    top: 8px;
+  }
+  .text {
+    font-style: normal;
+    line-height: 22px;
+
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 23px;
+    color: #000000;
+    letter-spacing: 0.01em;
+
+    position: absolute;
+    left: 72px;
+    top: 21px;
+  }
 }
 
 .button {
-    width: fit-content;
+  width: fit-content;
+  border-radius: 128px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 16px;
+  padding: 8px;
+  background: linear-gradient(117.02deg, #fafafa 26.19%, #f5f5f5 66.89%);
+  //box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.05);
+  //box-shadow: inset 1px 1px 1px white, inset -1px -1px 1px rgba(0, 0, 0, .1), 8px 8px 8px rgba(0, 0, 0, 0.05);
+  transition: all 100ms ease-out;
+  position: relative;
+  z-index: 10;
+
+  .bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     border-radius: 128px;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 16px;
-    padding: 8px;
-    background: linear-gradient(117.02deg, #FAFAFA 26.19%, #F5F5F5 66.89%);
-    //box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.05);
+
     //box-shadow: inset 1px 1px 1px white, inset -1px -1px 1px rgba(0, 0, 0, .1), 8px 8px 8px rgba(0, 0, 0, 0.05);
+
+    z-index: -1;
     transition: all 100ms ease-out;
+
+    background: linear-gradient(white, white) padding-box,
+      conic-gradient(
+          from 90deg at 50% 50%,
+          #7b7b7b 0deg,
+          #ffffff 30.28deg,
+          #ffffff 107.79deg,
+          #7c7c7c 185.05deg,
+          #f9f9f9 210.6deg,
+          #f9f9f9 327.05deg,
+          #7b7b7b 360deg
+        )
+        border-box;
+    border: 1px solid transparent;
+  }
+
+  .profile {
+    width: 48px;
+    height: 48px;
+    background-color: #76a1e6;
+    border-radius: 128px;
+    background-image: url("profile.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
     position: relative;
-    z-index: 10;
+
+    .status {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      width: 8px;
+      height: 8px;
+      border-radius: 100%;
+      background-color: #00ff00;
+      outline: 2px solid #f8f8f8;
+    }
+  }
+
+  .text {
+    font-style: normal;
+    line-height: 22px;
+
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 23px;
+    color: #000000;
+  }
+
+  .linkedin {
+    padding-left: 4px;
+    padding-right: 12px;
+  }
+
+  // &::before {
+  //     content: '';
+  //     position: absolute;
+  //     top: 0px;
+  //     left: 0;
+  //     width: 100%;
+  //     height: 100%;
+  //     background-color: transparent;
+  //     box-shadow: inset -2px -2px 8px rgba(0, 0, 0, 0.3);
+  //     z-index: -2;
+  //     border-radius: 128px;
+  //     transition: all 100ms ease-out;
+  //     //opacity: 0;
+  // }
+
+  &:before {
+    $border: 1px;
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    margin: -$border;
+    //background: conic-gradient(from 91.02deg at 50.78% 28.21%, #7B7B7B 0deg, #7C7C7C 32.12deg, #FFFFFF 60.28deg, #FFFFFF 107.79deg, #7C7C7C 185.05deg, #F9F9F9 210.6deg, #F9F9F9 327.05deg, #7B7B7B 360deg);
+  }
+
+  // &:hover {
+  //     transform: translateY(-4px);
+
+  //     .bg {
+  //         box-shadow: inset 1px 1px 1px white, inset -1px -1px 1px rgba(0, 0, 0, .1), 8px 12px 8px rgba(0, 0, 0, 0.05);
+  //     }
+
+  //     &::before {
+  //         transform: translateY(4px);
+  //     }
+
+  // }
+
+  &:active {
+    transform: translateY(2px);
+    transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
     .bg {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        border-radius: 128px;
-
-    
-        //box-shadow: inset 1px 1px 1px white, inset -1px -1px 1px rgba(0, 0, 0, .1), 8px 8px 8px rgba(0, 0, 0, 0.05);
-
-        z-index: -1;
-        transition: all 100ms ease-out;
-
-  background: linear-gradient(white, white) padding-box,
-              conic-gradient(from 90deg at 50% 50%, #7B7B7B 0deg,#FFFFFF 30.28deg, #FFFFFF 107.79deg, #7C7C7C 185.05deg, #F9F9F9 210.6deg, #F9F9F9 327.05deg, #7B7B7B 360deg) border-box;
-  border: 1px solid transparent;
-
-
-
+      box-shadow: inset -1px -1px 1px white,
+        inset 4px 4px 4px rgba(0, 0, 0, 0.1), 0px 0px 0px rgba(0, 0, 0, 0);
     }
 
-    .profile {
-        width: 48px;
-        height: 48px;
-        background-color: #76A1E6;
-        border-radius: 128px;
-        background-image: url('profile.jpg');
-        background-size: cover;
-        background-repeat: no-repeat;
-        position: relative;
-
-        .status {
-            position: absolute;
-            right: 0;
-            bottom: 0;
-            width: 8px;
-            height: 8px;
-            border-radius: 100%;
-            background-color: #00FF00;
-            outline: 2px solid #f8f8f8;
-        }
+    &::before {
+      transform: translateY(-2px);
+      opacity: 0;
     }
-
-    .text {
-        font-style: normal;
-        line-height: 22px;
-
-        font-weight: 500;
-        font-size: 18px;
-        line-height: 23px;
-        color: #000000;
-
-    }
-
-    .linkedin {
-        padding-left: 4px;
-        padding-right: 12px;
-
-    }
-
-    // &::before {
-    //     content: '';
-    //     position: absolute;
-    //     top: 0px;
-    //     left: 0;
-    //     width: 100%;
-    //     height: 100%;
-    //     background-color: transparent;
-    //     box-shadow: inset -2px -2px 8px rgba(0, 0, 0, 0.3);
-    //     z-index: -2;
-    //     border-radius: 128px;
-    //     transition: all 100ms ease-out;
-    //     //opacity: 0;
-    // }
-
-    &:before {
-        $border: 1px;
-        content: '';
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        z-index: -1;
-        margin: -$border;
-        //background: conic-gradient(from 91.02deg at 50.78% 28.21%, #7B7B7B 0deg, #7C7C7C 32.12deg, #FFFFFF 60.28deg, #FFFFFF 107.79deg, #7C7C7C 185.05deg, #F9F9F9 210.6deg, #F9F9F9 327.05deg, #7B7B7B 360deg);
-    }
-
-    // &:hover {
-    //     transform: translateY(-4px);
-
-    //     .bg {
-    //         box-shadow: inset 1px 1px 1px white, inset -1px -1px 1px rgba(0, 0, 0, .1), 8px 12px 8px rgba(0, 0, 0, 0.05);
-    //     }
-
-    //     &::before {
-    //         transform: translateY(4px);
-    //     }
-
-    // }
-
-    &:active {
-        transform: translateY(2px);
-        transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
-
-        .bg {
-            box-shadow: inset -1px -1px 1px white, inset 4px 4px 4px rgba(0, 0, 0, 0.1), 0px 0px 0px rgba(0, 0, 0, 0);
-
-        }
-
-        &::before {
-            transform: translateY(-2px);
-            opacity: 0;
-        }
-
-
-    }
+  }
 }
 </style>

@@ -34,8 +34,8 @@
       <div class="container">
         <div class="hero">
           <h1 class="h1">
-            Ik ontwerp apps met <em>kwaliteit</em><br/> waar je <em>blij</em> van
-            wordt.
+            Ik ontwerp apps met <em>kwaliteit</em><br />
+            waar je <em>blij</em> van wordt.
           </h1>
           <p class="p-l">
             Gebruiksvriendelijke applicaties en interne systemen om effectiever
@@ -48,7 +48,7 @@
         </div>
       </div>
     </section>
-    <section id="section-1">
+    <section id="section-specs">
       <div class="container">
         <div class="hero">
           <h2 class="h2">
@@ -62,7 +62,7 @@
         <Specs />
       </div>
     </section>
-    <section id="section-ervaring">
+    <section id="section-ervaring" >
       <div class="container">
         <div class="main">
           <h2 class="h2">
@@ -92,62 +92,25 @@
         </div>
         <div class="sub">
           <ul>
-            <li class="job">
+            <li
+              v-for="(job, index) in jobs"
+              :key="index"
+              :class="[{ selected: selectedIndex === index }, 'job']"
+              @mouseover="selectedIndex = index"
+              @mouseout="selectedIndex = null"
+            >
               <NuxtLink to="#">
                 <img
-                  src="/uselab.jpg"
-                  alt=""
+                  :src="job.image"
+                  :alt="job.name"
                   width="64px"
                   height="64px"
-                  id="img-uselab"
+                  :id="'img-' + job.name.toLowerCase()"
                 />
                 <div class="text">
-                  <h5>
-                    Uselab
-                    <svg
-                      width="8"
-                      height="8"
-                      viewBox="0 0 8 8"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <rect width="8" height="8" rx="4" fill="#75DD88" />
-                    </svg>
-                  </h5>
-                  <h6>Digital Product Designer</h6>
-                  <p>2024 - nu</p>
-                </div>
-              </NuxtLink>
-            </li>
-            <li class="job">
-              <NuxtLink to="#">
-                <img
-                  src="/clutch.jpg"
-                  alt=""
-                  width="64px"
-                  height="64px"
-                  id="img-clutch"
-                />
-                <div class="text">
-                  <h5>Clutch</h5>
-                  <h6>Brand Designer</h6>
-                  <p>2024 - nu</p>
-                </div>
-              </NuxtLink>
-            </li>
-            <li class="job">
-              <NuxtLink to="#">
-                <img
-                  src="/endeavour.jpg"
-                  alt=""
-                  width="64px"
-                  height="64px"
-                  id="img-endeavour"
-                />
-                <div class="text">
-                  <h5>Endeavour</h5>
-                  <h6>Digital Designer</h6>
-                  <p>2024 - nu</p>
+                  <h5>{{ job.name }}</h5>
+                  <h6>{{ job.title }}</h6>
+                  <p>{{ job.duration }}</p>
                 </div>
               </NuxtLink>
             </li>
@@ -155,7 +118,7 @@
         </div>
       </div>
     </section>
-    <section id="section-3">
+    <section id="section-end">
       <div class="container">
         <h3 class="h3">Geïnteresseerd?</h3>
         <Button :to="'https://www.linkedin.com/in/sjoerdklatser'"
@@ -165,6 +128,29 @@
     </section>
   </main>
 </template>
+
+<script setup>
+let jobs = ref([
+    {
+    name: "Uselab",
+    title: "Digital Product Designer",
+    duration: "2024 - nu",
+    image: "/uselab.jpg",
+  },
+    {
+    name: "Clutch",
+    title: "Brand Designer",
+    duration: "2024 - nu",
+    image: "/clutch.jpg",
+  },
+  {
+    name: "Endeavour",
+    title: "Digital Designer",
+    duration: "2016 - nu",
+    image: "/endeavour.jpg",
+  },
+]);
+</script>
 
 <style lang="scss">
 $color-text-secondary: #6c7176;
@@ -290,8 +276,6 @@ nav {
         gap: 8px;
         opacity: 0.5;
         transition: all 200ms;
-        cursor: wait;
-
         &:hover {
           opacity: 1;
         }
@@ -326,13 +310,13 @@ nav {
   }
 }
 
-#section-1 {
+#section-specs {
   height: auto;
   //background: linear-gradient(180deg, #f4f4f4 100%, #E7E9EA 50%);
   background: linear-gradient(180deg, #e7e9ea 50%, #f4f4f4 100%);
 
   .hero {
-    max-width: 580px;
+    max-width: 680px;
     display: flex;
     flex-direction: column;
     gap: 24px;
@@ -341,21 +325,25 @@ nav {
     position: relative;
 
     h2 {
-      font-style: normal;
-      font-weight: 700;
-      font-size: 36px;
-      line-height: 44px;
       text-align: center;
       color: #000000;
+      font-family: "Geist";
+      font-style: normal;
+      font-weight: 400;
+      font-size: 40px;
+      line-height: 120%;
+      letter-spacing: -0.01em;
     }
 
     p {
+      font-family: "Geist";
       font-style: normal;
-      font-weight: 400;
-      font-size: 21px;
-      line-height: 25px;
+      font-weight: 375;
+      font-size: 18px;
+      line-height: 23px;
       text-align: center;
-      color: #808080;
+      letter-spacing: -0.01em;
+      color: #6c7176;
     }
   }
 }
@@ -430,14 +418,20 @@ nav {
         display: flex;
         flex-direction: column;
         gap: 32px;
-
+        &:hover {
+          li.job {
+            opacity: 0.6;
+            &:hover {
+              opacity: 1;
+            }
+          }
+        }
         li.job {
           list-style: none;
-          transition: all 100ms ease-out;
+          transition: all 200ms ease-out;
 
           &:hover {
-            //transform: scale(1.02);
-            transform: translateX(4px);
+            transform: translateX(5px);
           }
 
           a {
@@ -501,18 +495,20 @@ nav {
   }
 }
 
-#section-3 {
+#section-end {
+  background: linear-gradient(180deg, #e7e9ea 50%, #f4f4f4 100%);
+
   h3 {
     text-align: center;
     font-size: 36px;
   }
 }
 
-#section-1,
+#section-specs,
 #section-ervaring,
-#section-3 {
-  border-top: 1px solid red;
-  height: 100vh;
+#section-end {
+  //border-top: 1px solid red;
+  min-height: 100vh;
   //background-color: #f2f2f2;
 }
 </style>
