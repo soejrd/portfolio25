@@ -143,6 +143,7 @@ const fragmentShaderSource = `
     for (int i = 0; i < NUM_DOTS; ++i) {
       float offset_y = (float(i) - float(NUM_DOTS - 1) / 2.0) * resDist * u_dot_spacing;
       vec2 currentDotCenterPx = cellCenterPx + vec2(0.0, offset_y);
+      vec2 currentRectCenterPx = cellCenterPx + vec2(0.0, offset_y);
 
       float distToCenter = distance(fragCoord, currentDotCenterPx);
 
@@ -150,12 +151,28 @@ const fragmentShaderSource = `
         float radius = map(noiseVal, u_threshold, 1.0, 0.0, resDist / 4.0);
         radius = max(0.0, radius); 
 
+        float rectWidth = map(noiseVal, u_threshold, 1.0, 0.0, resDist / 2.0);
+        rectWidth = max(0.0, rectWidth);
+        float rectHeight = resDist * 0.5; 
+        vec2 distFromCenter = abs(fragCoord - currentRectCenterPx);
+        vec2 halfSize = vec2(rectWidth / 2.0, rectHeight / 2.0);
+
         float aa = 1.5 / min(u_resolution.x, u_resolution.y);
+
+        float sx = smoothstep(halfSize.x + aa, halfSize.x - aa, distFromCenter.x);
+        float sy = smoothstep(halfSize.y + aa, halfSize.y - aa, distFromCenter.y);
+
+        float rectStrength = sx * sy;
         
-        float circleStrength = smoothstep(radius + aa, radius - aa, distToCenter);
+        //float circleStrength = smoothstep(radius + aa, radius - aa, distToCenter);
+        //vec3 currentColor = u_dotColors[i];
         vec3 currentColor = u_dotColors[i];
-        vec3 dotColorMultiplier = mix(vec3(1.0), currentColor, circleStrength * u_dot_opacity);
-        finalColor *= dotColorMultiplier;
+
+        
+        vec3 rectColorMultiplier = mix(vec3(1.0), currentColor, rectStrength * u_dot_opacity);
+        //vec3 dotColorMultiplier = mix(vec3(1.0), currentColor, circleStrength * u_dot_opacity);
+        //finalColor *= dotColorMultiplier;
+        finalColor *= rectColorMultiplier;
       }
     }
 
@@ -409,9 +426,6 @@ function resizeCanvasToDisplaySize(canvas) {
 onMounted(() => {
   main();
 });
-
-
-
 </script>
 
 <style lang="scss" scoped>
@@ -428,8 +442,6 @@ onMounted(() => {
   opacity: 0;
 }
 
-
-
 @keyframes dots-fade {
   0% {
     transform: scale(0.98);
@@ -442,6 +454,5 @@ onMounted(() => {
     transform: scale(1);
     opacity: 0.7;
   }
-  
 }
 </style>

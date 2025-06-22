@@ -3,7 +3,7 @@
   <Fab />
   <main>
     <section id="section-hero" v-reveal-header>
-      <!-- <Dots /> -->
+      <Dots />
       <div class="container">
         <div class="hero">
           <h1 class="h1 h1_split" v-html="$t('section-hero.title')"></h1>
@@ -256,6 +256,7 @@ h1 {
   background: linear-gradient(180deg, #e7e9ea 50%, #f4f4f4 100%);
   width: 100%;
   position: relative;
+  z-index: -1;
   &:after {
     content: "";
     position: absolute;
@@ -265,7 +266,7 @@ h1 {
     height: 100%;
     background: radial-gradient(rgba(173, 216, 237, 1) 0%, rgba(173, 216, 237, 0) 100%);
     mix-blend-mode: color;
-    z-index: 4;
+    //z-index: 4;
     opacity: 0.4;
     pointer-events: none;
     user-select: none;
@@ -275,6 +276,7 @@ h1 {
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
   }
 
   .hero {
@@ -282,7 +284,7 @@ h1 {
     display: flex;
     flex-direction: column;
     gap: 24px;
-    z-index: 3;
+    z-index: 4;
     position: relative;
     padding-bottom: 24px;
 
