@@ -1,8 +1,9 @@
 <template>
-  <canvas id="gl-canvas" ref="canvas"></canvas>
+  <canvas id="gl-canvas" ref="canvas" class="dots"></canvas>
 </template>
 
 <script setup>
+import { gsap } from "gsap";
 const vertexShaderSource = `
   attribute vec2 a_position;
 
@@ -158,7 +159,6 @@ const fragmentShaderSource = `
       }
     }
 
-    //finalAlpha = min(finalAlpha, 1.0);
     gl_FragColor = vec4(finalColor, 1.0);
   }
 `;
@@ -249,7 +249,6 @@ function main() {
   const fractal_gain = 1;
 
   const fractal_lacunarity = 3.0;
-
 
   //const fill_color_rgb = [170.0 / 255.0, 248.0 / 255.0, 255.0 / 255.0];
   const dot_colors_rgb = [
@@ -410,6 +409,9 @@ function resizeCanvasToDisplaySize(canvas) {
 onMounted(() => {
   main();
 });
+
+
+
 </script>
 
 <style lang="scss" scoped>
@@ -421,6 +423,25 @@ onMounted(() => {
   width: 100vw;
   min-height: 130vh;
   mix-blend-mode: multiply;
-  opacity: 0.7;
+  animation: dots-fade 1.5s ease-out forwards;
+  animation-delay: 2s;
+  opacity: 0;
+}
+
+
+
+@keyframes dots-fade {
+  0% {
+    transform: scale(0.98);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  
 }
 </style>
