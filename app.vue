@@ -1,47 +1,13 @@
 <template>
-  <nav>
-    <div class="container">
-      <NuxtLink to="#">
-        Linkedin
-        <svg
-          width="13"
-          height="12"
-          viewBox="0 0 13 12"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <g opacity="0.3">
-            <path
-              d="M8.60016 4.41L3.94078 9.0825C3.83578 9.1875 3.71101 9.24 3.56646 9.24C3.42226 9.24 3.29766 9.1875 3.19266 9.0825C3.08766 8.9775 3.03516 8.85273 3.03516 8.70818C3.03516 8.56398 3.08766 8.43938 3.19266 8.33438L7.86516 3.675H3.87516C3.72641 3.675 3.60163 3.62477 3.50083 3.52432C3.40038 3.42352 3.35016 3.29875 3.35016 3.15C3.35016 3.00125 3.40038 2.87648 3.50083 2.77568C3.60163 2.67523 3.72641 2.625 3.87516 2.625H9.12516C9.27391 2.625 9.39851 2.67523 9.49896 2.77568C9.59976 2.87648 9.65016 3.00125 9.65016 3.15V8.4C9.65016 8.54875 9.59976 8.67335 9.49896 8.7738C9.39851 8.8746 9.27391 8.925 9.12516 8.925C8.97641 8.925 8.85181 8.8746 8.75136 8.7738C8.65056 8.67335 8.60016 8.54875 8.60016 8.4V4.41Z"
-              fill="black"
-            />
-          </g>
-        </svg>
-      </NuxtLink>
-      <div class="meta">
-        <div class="main">
-          <p>Amsterdam</p>
-          <Clock />
-        </div>
-        <Toggle>p</Toggle>
-      </div>
-    </div>
-  </nav>
+  <Nav></Nav>
   <Fab />
   <main>
-    <section id="section-hero">
-      <Dots />
+    <section id="section-hero" v-reveal-header>
+      <!-- <Dots /> -->
       <div class="container">
         <div class="hero">
-          <h1 class="h1">
-            Ik ontwerp apps met <em>kwaliteit</em><br />
-            waar je <em>blij</em> van wordt.
-          </h1>
-          <p class="p-l">
-            Gebruiksvriendelijke applicaties en interne systemen om effectiever
-            digitale mankracht te kunnen leveren. Met <i>expertise</i>,
-            <i>passie</i> en <i>techniek</i>.
-          </p>
+          <h1 class="h1 h1_split" v-html="$t('section-hero.title')"></h1>
+          <p class="p-l p_split" v-html="$t('section-hero.paragraph')"></p>
           <Button :to="'https://www.linkedin.com/in/sjoerdklatser'"
             >Let's connect</Button
           >
@@ -51,23 +17,23 @@
     <section id="section-specs">
       <div class="container">
         <div class="hero">
-          <h2 class="h2">
+          <h2 class="h2" v-fade>
             Brede interesses met jke moeder lorem ipsum dolor sit amet.
           </h2>
-          <p class="p-m">
+          <!-- <p class="p-m" v-fade>
             Leverage the power of serverless architecture to deliver your lorem
             ipsum dolor moeder ja noe euhef.
-          </p>
+          </p> -->
         </div>
-        <Specs />
+        <Specs3 v-fade />
       </div>
     </section>
-    <section id="section-ervaring" >
+    <section id="section-ervaring">
       <div class="container">
         <div class="main">
-          <h2 class="h2">
-            Ik werk op dit moment bij
-            <NuxtLink to="#">
+          <h2 class="h2" v-fade>
+            {{ $t("section-ervaring.title") }}
+            <NuxtLink to="https://www.uselab.com" target="_blank">
               Uselab
               <svg
                 width="13"
@@ -85,12 +51,9 @@
               </svg>
             </NuxtLink>
           </h2>
-          <p class="p-m">
-            Wij helpen organisaties bij het ontwikkelen van digitale producten
-            en strategieën die waarde toevoegen.
-          </p>
+          <p class="p-m" v-fade v-html="$t('section-ervaring.paragraph')"></p>
         </div>
-        <div class="sub">
+        <div class="sub" v-fade>
           <ul>
             <li
               v-for="(job, index) in jobs"
@@ -99,7 +62,7 @@
               @mouseover="selectedIndex = index"
               @mouseout="selectedIndex = null"
             >
-              <NuxtLink to="#">
+              <NuxtLink :to="job.link" target="_blank">
                 <img
                   :src="job.image"
                   :alt="job.name"
@@ -120,8 +83,8 @@
     </section>
     <section id="section-end">
       <div class="container">
-        <h3 class="h3">Geïnteresseerd?</h3>
-        <Button :to="'https://www.linkedin.com/in/sjoerdklatser'"
+        <h3 class="h3" v-fade>Geïnteresseerd?</h3>
+        <Button :to="'https://www.linkedin.com/in/sjoerdklatser'" v-fade
           >Let's connect</Button
         >
       </div>
@@ -130,26 +93,51 @@
 </template>
 
 <script setup>
+import { gsap } from "gsap";
+import SplitType from "split-type";
+const { locales, setLocale } = useI18n();
+
 let jobs = ref([
-    {
+  {
     name: "Uselab",
     title: "Digital Product Designer",
     duration: "2024 - nu",
     image: "/uselab.jpg",
+    link: "https://www.uselab.com",
   },
-    {
+  {
     name: "Clutch",
     title: "Brand Designer",
     duration: "2024 - nu",
     image: "/clutch.jpg",
+    link: "https://www.clutch.com", 
   },
   {
     name: "Endeavour",
     title: "Digital Designer",
     duration: "2016 - nu",
     image: "/endeavour.jpg",
+    link: "https://www.endeavour.com", 
   },
 ]);
+
+nextTick(() => {
+  const tl_button = gsap.fromTo(
+    "#section-hero .button",
+    {
+      opacity: 0,
+      y: 10,
+    },
+    {
+      opacity: 1,
+      y: 0,
+      delay: 0.6,
+      duration: 0.4,
+      clearProps: "all",
+    }
+  );
+  tl_button.play();
+});
 </script>
 
 <style lang="scss">
@@ -168,6 +156,7 @@ body {
   padding: 0;
   box-sizing: border-box;
   //font-family: 'Geist', sans-serif;
+  font-kerning: none;
 }
 
 section {
@@ -207,79 +196,30 @@ h1 {
   color: #333333;
 }
 
-nav {
-  position: fixed;
-  width: 100%;
-  top: 16px;
-  left: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+.v-fade-active {
+  opacity: 1;
+  transform: translateY(0px);
+  transition: opacity 0.4s ease-out, transform 0.7s ease-out;
+}
+.v-fade-inactive {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.4s ease-out, transform 0.7s ease-out;
+}
 
-  z-index: 99;
-
-  .container {
-    width: 100%;
-    max-width: 1200px;
-    padding: 12px;
-    padding-left: 24px;
-    padding-right: 16px;
-    border-radius: 120px;
-
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    transition: all 200ms ease-out;
-
-    background-color: rgba(107, 170, 191, 0.05);
-    box-shadow: 0px -1px 0px rgba(255, 255, 255, 0.3),
-      0px 1px 0px rgba(0, 0, 0, 0.02);
-    backdrop-filter: blur(2px);
-
-    &:hover {
-      backdrop-filter: blur(4px);
-    }
-
-    a {
-      text-decoration: none;
-      color: black;
-
+.reveal-header {
+  h1,
+  h2,
+  p,
+  button,
+  a,
+  img {
+    position: relative;
+    z-index: 1;
+    font-kerning: none;
+    .line {
+      overflow: hidden;
       display: block;
-      background: linear-gradient(transparent, black);
-      background-size: 0% 1px;
-      background-repeat: no-repeat;
-      background-position: 0% 100%;
-      transition: all 200ms ease-out;
-
-      &:hover {
-        background: linear-gradient(#76a1e6, #76a1e6);
-        background-size: 100% 1px;
-        background-repeat: no-repeat;
-        background-position: 0 100%;
-        color: #3367bb;
-      }
-    }
-
-    .meta {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-      gap: 32px;
-
-      .main {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        gap: 8px;
-        opacity: 0.5;
-        transition: all 200ms;
-        &:hover {
-          opacity: 1;
-        }
-      }
     }
   }
 }
@@ -314,15 +254,37 @@ nav {
   height: auto;
   //background: linear-gradient(180deg, #f4f4f4 100%, #E7E9EA 50%);
   background: linear-gradient(180deg, #e7e9ea 50%, #f4f4f4 100%);
+  width: 100%;
+  position: relative;
+  &:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(rgba(173, 216, 237, 1) 0%, rgba(173, 216, 237, 0) 100%);
+    mix-blend-mode: color;
+    z-index: 4;
+    opacity: 0.4;
+    pointer-events: none;
+    user-select: none;
+
+  }
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 
   .hero {
     max-width: 680px;
     display: flex;
     flex-direction: column;
     gap: 24px;
-    margin-bottom: 64px;
     z-index: 3;
     position: relative;
+    padding-bottom: 24px;
 
     h2 {
       text-align: center;
@@ -418,14 +380,14 @@ nav {
         display: flex;
         flex-direction: column;
         gap: 32px;
-        &:hover {
-          li.job {
-            opacity: 0.6;
-            &:hover {
-              opacity: 1;
-            }
-          }
-        }
+        // &:hover {
+        //   li.job {
+        //     opacity: 0.3;
+        //     &:hover {
+        //       opacity: 1;
+        //     }
+        //   }
+        // }
         li.job {
           list-style: none;
           transition: all 200ms ease-out;

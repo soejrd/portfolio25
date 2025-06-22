@@ -3,7 +3,7 @@ export default defineNuxtConfig({
   ssr: false,
   compatibilityDate: "2024-11-01",
   devtools: { enabled: true },
-  modules: ["@nuxtjs/seo", "@nuxt/fonts", "nuxt-aos"],
+  modules: ["@nuxtjs/seo", "@nuxt/fonts", "@nuxtjs/i18n"],
   fonts: {
     families: [
       {
@@ -13,17 +13,15 @@ export default defineNuxtConfig({
       },
     ],
   },
-    aos: {
-    // Global settings:
-    disable: false, // accepts following values: 'phone', 'tablet', 'mobile', boolean, expression or function
-    startEvent: 'DOMContentLoaded', // name of the event dispatched on the document, that AOS should initialize on
-    initClassName: 'aos-init', // class applied after initialization
-    animatedClassName: 'aos-animate', // class applied on animation
-    duration: 400, // values from 0 to 3000, with step 50ms
-    offset: 150,
-    easing: 'ease-out-sine',
-    once: true,
-    anchorPlacement: 'top-center',
-
-  }
+  i18n: {
+    defaultLocale: "en",
+    compilation: {
+      strictMessage: false,
+      escapeHtml: false,
+    },
+    locales: [
+      { code: "nl", name: "Nederlands", file: "nl.json" },
+      { code: "en", name: "English", file: "en.json" },
+    ],
+  },
 });

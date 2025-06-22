@@ -1,24 +1,21 @@
 <template>
     <div class="toggle-switch" :class="{ checked: isChecked }" @click="toggle">
-        <p class="lang">EN</p>
+        <p class="lang">{{ isChecked ? 'EN' : 'NL' }}</p>
     </div>
 </template>
 
 <script setup>
-const props = defineProps({
-    modelValue: {
-        required: false,
-        type: Boolean
-    }
-})
+import { useI18n } from 'vue-i18n';
 
-const isChecked = ref(false)
+const { locale, setLocale } = useI18n();
+
+const isChecked = ref(locale.value === 'en');
 
 const toggle = () => {
-    isChecked.value = !isChecked.value
-}
+    isChecked.value = !isChecked.value;
+    setLocale(isChecked.value ? 'en' : 'nl');
+};
 </script>
-
 <style lang="scss" scoped>
 * {
     
@@ -69,6 +66,10 @@ const toggle = () => {
     p.lang {
     right: 28px;
     }
+}
+
+.toggle-switch:not(.checked) p.lang {
+    right: 8px;
 }
 
 .checked::before {
