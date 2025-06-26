@@ -95,6 +95,7 @@
         :class="{
           'specs-card': true,
           selected: selectedCardIndex === index,
+          hovered: hoveredCardIndex === index
         }"
         @click="selectButton(index)"
       >
@@ -109,8 +110,12 @@
 
 <script setup>
 import { ref } from "vue";
+import { gsap } from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
 
 const selectedCardIndex = ref(0); // Initialize to 0 for first button selected
+const hoveredCardIndex = ref(null);
 
 const buttons = ref([
   {
@@ -257,12 +262,35 @@ const buttons = ref([
 
 const selectButton = (index) => {
   selectedCardIndex.value = index;
+  hoveredCardIndex.value = null; // Clear hover state when clicking
 };
 
 const generateCurve = (index) => {
   const startX = 10 + index * 80; // Start position varies per button
   return `M ${startX},10 C ${startX},50 50,80 100,100`;
 };
+onMounted(() => {
+  const rotationAmount = 12;
+  const specsContainer = document.querySelector(".specs-container");
+  const cards = document.querySelectorAll(".specs-card");
+
+  cards.forEach((card) => {
+    gsap.to(card, {
+      scrollTrigger: {
+        trigger: specsContainer,
+        start: "bottom bottom",
+        //end: "bottom bottom",
+        //scrub: true,
+      },
+      rotate: Math.random() * rotationAmount - rotationAmount / 2,
+      duration: 1,
+      
+      onComplete: () => {
+        card.style.transitionDuration = '200ms';
+      }
+    });
+  });
+});
 </script>
 
 <style lang="scss">
@@ -273,37 +301,40 @@ $transition-duration: 400ms;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0;
+  gap: 0px;
   width: 100%;
 }
 
 .specs-container {
   display: flex;
   justify-content: space-between;
-  //flex-wrap: wrap;
   width: 100%;
-  gap: 20px;
+  gap: 0px;
   margin-bottom: 4px;
 }
 
 .specs-card {
+  flex-basis: 20%;
+
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  min-width: 200px;
+  //min-width: 200px;
   gap: 10px;
   aspect-ratio: 1;
   padding: 20px;
-  border-radius: 8px;
+  border-radius: 4px;
   cursor: pointer;
   position: relative;
   //transition: all 150ms ease-out;
-  box-shadow: 0px 0px 5px rgba(97, 107, 255, 0);
-  background-color: rgba(255, 255, 255, 0.6);
+  background-color: #f6f6f6;
   border: 1px solid rgba(52, 170, 255, 0.1);
   overflow: clip;
-  transition: background-color calc($transition-duration/2) ease-out, transform calc($transition-duration/2) ease-out;
+  //transition: background-color calc($transition-duration/2) ease-out,
+  //transform calc($transition-duration/2) ease-out;
+  box-shadow: 0px 8px 50px rgba(0, 0, 0, 0.05);
 
   span {
     width: 28px;
@@ -324,7 +355,6 @@ $transition-duration: 400ms;
     font-size: 12px;
     color: black;
     z-index: 1;
-    
   }
 
   p {
@@ -347,30 +377,24 @@ $transition-duration: 400ms;
     border-radius: 8px;
     content: "";
     z-index: 0;
-    background: radial-gradient(
-        50% 50% at 50% 50%,
-        #45d4ff 0%,
-        #004373 100%
-      )
+    background: radial-gradient(50% 50% at 50% 50%, #45d4ff 0%, #004373 100%)
       #34aaff;
     background-blend-mode: overlay, normal;
     opacity: 0;
     background-position: 0px 0px;
-    animation: specs-card-bg 30s cubic-bezier(.1,0,.9,1) infinite;
+    animation: specs-card-bg 30s cubic-bezier(0.1, 0, 0.9, 1) infinite;
     transition: opacity calc($transition-duration/2) ease-out;
   }
 
-  // &:hover {
-  //   box-shadow: 0px 5px 5px rgba(97, 107, 255, 0.1);
-  //   svg {
-  //     color: $blue;
-  //   }
-  // }
-  &:hover{
-    transform: translateY(-5px);
+  &:hover {
+    transform: rotate(0) scale(1.03) !important;
+
+    z-index: 1;
+
   }
 
   &.selected {
+    // Selected styles remain the same
     transform: translateY(-5px);
     background-color: #34aaff;
     box-shadow: 0px 8px 12px rgba(0, 130, 157, 0.15);
@@ -394,7 +418,33 @@ $transition-duration: 400ms;
     p {
       opacity: 1;
       transform: none;
-
+    }
+  }
+  
+  &.hovered:not(.selected) {
+    transform: translateY(-5px);
+    background-color: #34aaff;
+    box-shadow: 0px 8px 12px rgba(0, 130, 157, 0.15);
+    span {
+      right: 8px;
+      top: 8px;
+      left: unset;
+      transform: translate(0, 0);
+      opacity: 0.5;
+      svg {
+        transform: scale(0.8);
+      }
+      color: white;
+    }
+    .specs-card-bg {
+      opacity: 0.5;
+    }
+    h4 {
+      color: white;
+    }
+    p {
+      opacity: 1;
+      transform: none;
     }
   }
 }
@@ -405,78 +455,7 @@ $transition-duration: 400ms;
   box-sizing: content-box;
 }
 
-.card-container {
-  display: flex;
-  justify-content: center;
-  position: relative;
-  background-color: blue;
-  min-height: 165px;
 
-  .card {
-    background-color: #ffffff;
-    border-radius: 8px;
-    padding: 32px;
-    position: absolute;
-    top: 0;
-    transition: all 0.3s ease;
-    width: 360px;
-    height: 165px;
-    text-align: left;
-    //border: 1px solid rgba(0, 0, 0, 0.1);
-
-    &.selected-card {
-      z-index: 10;
-      /* Highest z-index for selected card */
-      transform: scale(1);
-    }
-
-    &.card-adjacent-left,
-    &.card-adjacent-right {
-      z-index: 5;
-      /* Medium z-index for adjacent cards */
-      transform: scale(0.95) translateX(0);
-    }
-
-    &.card-outer-left,
-    &.card-outer-right {
-      z-index: 1;
-      /* Lowest z-index for outer cards */
-      transform: scale(0.9) translateX(0);
-    }
-
-    &.card-adjacent-left {
-      transform: scale(0.95) translateX(-20px);
-      /* Adjust translation as needed */
-    }
-
-    &.card-adjacent-right {
-      transform: scale(0.95) translateX(20px);
-      /* Adjust translation as needed */
-    }
-
-    &.card-outer-left {
-      transform: scale(0.9) translateX(-40px);
-      /* Adjust translation as needed */
-    }
-
-    &.card-outer-right {
-      transform: scale(0.9) translateX(40px);
-      /* Adjust translation as needed */
-    }
-
-    &.card:not(.selected-card) {
-      pointer-events: none;
-      /* Make unselected cards non-interactive */
-    }
-
-    .card-content {
-    }
-  }
-}
-
-.card.selected-card .card-connector-line {
-  display: block;
-}
 
 .card-downward-line {
   position: absolute;
@@ -500,7 +479,7 @@ $transition-duration: 400ms;
     //transform: translate3d(100%, 100%, 0);
     background-position: 800px 200px;
   }
-    100% {
+  100% {
     //transform: translate3d(100%, 100%, 0);
     background-position: 0px 0px;
   }
