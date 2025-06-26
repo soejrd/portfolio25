@@ -15,15 +15,7 @@
 
         </div>
         <div class="fab-outer" :class="{ active: active }">
-            <div class="fab-outer-item">
-            </div>
-            <div class="fab-outer-item">
-            </div>
-            <div class="fab-outer-item">
-            </div>
-            <div class="fab-outer-item">
-            </div>
-            <div class="fab-outer-item">
+            <div v-for="i in 5" :key="i" class="fab-outer-item" @click="active = false">
             </div>
         </div>
 
@@ -59,7 +51,7 @@ const active = ref(false);
         position: relative;
         box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
         transition: all 100ms ease-out;
-
+        
         svg {
             margin: 0 auto;
             display: block;
@@ -92,13 +84,28 @@ const active = ref(false);
             opacity: 0;
             user-select: none;
             z-index: 0;
-            cursor:not-allowed;
+            cursor: not-allowed;
 
             @for $i from 0 through 8 {
                 &:nth-child(#{$i}) {
                     transform: rotate($i * 30deg - 120deg) translate(0, 0);
-
                 }
+            }
+            &:nth-child(1) {
+                background: linear-gradient(45deg, #82d7eb 0%, #d9e9ff 100%);
+                cursor: pointer;
+            }
+            &:nth-child(2){
+                background-color: black;
+            }
+            &:nth-child(3){
+                background-color: rgb(255, 216, 23);
+            }
+            &:nth-child(4){
+                background-color: rgb(163, 163, 163);
+            }
+                        &:nth-child(5){
+                background-color: rgb(122, 163, 96);
             }
         }
         &.active {
