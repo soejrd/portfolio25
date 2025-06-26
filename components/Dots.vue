@@ -1,4 +1,5 @@
 <template>
+  <canvas id="noise-canvas" ref="noiseCanvas" class="noise-layer"></canvas>
   <canvas id="gl-canvas" ref="canvas" class="dots"></canvas>
 </template>
 
@@ -181,18 +182,66 @@ const fragmentShaderSource = `
 `;
 
 const canvasRef = useTemplateRef("canvas");
+const noiseCanvasRef = useTemplateRef("noiseCanvas");
+
+function initNoise(gl) {
+  const noiseShaderSource = `
+    precision mediump float;
+    uniform vec2 u_resolution;
+    uniform float u_time;
+    
+    float random(vec2 st) {
+      return fract(sin(dot(st.xy, vec2(12.9898,78.233))) * 43758.5453123);
+    }
+    
+    void main() {
+      vec2 st = gl_FragCoord.xy / u_resolution;
+      float noise = random(st + u_time * 0.0001);
+      gl_FragColor = vec4(vec3(noise), 1); // 10% opacity white noise
+    }
+  `;
+
+  const vertexShader = createShader(gl, gl.VERTEX_SHADER, vertexShaderSource);
+  const fragmentShader = createShader(gl, gl.FRAGMENT_SHADER, noiseShaderSource);
+  const program = createProgram(gl, vertexShader, fragmentShader);
+
+  const positionAttributeLocation = gl.getAttribLocation(program, "a_position");
+  const resolutionUniformLocation = gl.getUniformLocation(program, "u_resolution");
+  const timeUniformLocation = gl.getUniformLocation(program, "u_time");
+
+  const positionBuffer = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+  const vertices = [-1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1];
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
+
+  return {
+    program,
+    positionAttributeLocation,
+    resolutionUniformLocation,
+    timeUniformLocation,
+    positionBuffer
+  };
+}
 
 function main() {
   const canvas = canvasRef.value;
+  const noiseCanvas = noiseCanvasRef.value;
   const gl = canvas.getContext("webgl");
-  if (!gl) {
+  const noiseGl = noiseCanvas.getContext("webgl");
+  
+  if (!gl || !noiseGl) {
     console.error("WebGL is not supported.");
     return;
   }
 
-  // ---- ENABLE ALPHA BLENDING ----
+  // Initialize noise layer
+  const noiseProgram = initNoise(noiseGl);
+  
+  // Enable alpha blending for both contexts
   gl.enable(gl.BLEND);
   gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+  noiseGl.enable(gl.BLEND);
+  noiseGl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
 
   const vertexShader = createShader(gl, gl.VERTEX_SHADER, vertexShaderSource);
   const fragmentShader = createShader(
@@ -295,10 +344,25 @@ function main() {
     time *= 0.000005; // convert time to seconds
 
     resizeCanvasToDisplaySize(gl.canvas);
-    gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
+    resizeCanvasToDisplaySize(noiseGl.canvas);
+    
+    // Render noise layer
+    noiseGl.viewport(0, 0, noiseGl.canvas.width, noiseGl.canvas.height);
+    noiseGl.clearColor(0, 0, 0, 0);
+    noiseGl.clear(noiseGl.COLOR_BUFFER_BIT);
+    
+    noiseGl.useProgram(noiseProgram.program);
+    noiseGl.uniform2f(noiseProgram.resolutionUniformLocation, noiseGl.canvas.width, noiseGl.canvas.height);
+    noiseGl.uniform1f(noiseProgram.timeUniformLocation, time);
+    
+    noiseGl.enableVertexAttribArray(noiseProgram.positionAttributeLocation);
+    noiseGl.bindBuffer(noiseGl.ARRAY_BUFFER, noiseProgram.positionBuffer);
+    noiseGl.vertexAttribPointer(noiseProgram.positionAttributeLocation, 2, noiseGl.FLOAT, false, 0, 0);
+    noiseGl.drawArrays(noiseGl.TRIANGLES, 0, 6);
 
-    //gl.clearColor(0, 0, 0, 0); // Clear to transparent black
-    gl.clearColor(1.0, 1.0, 1.0, 1.0); //clear to transparent white
+    // Render main dots layer
+    gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
+    gl.clearColor(0, 0, 0, 0);
     gl.clear(gl.COLOR_BUFFER_BIT);
 
     gl.useProgram(program);
@@ -429,6 +493,18 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
+.noise-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100vw;
+  min-height: 130vh;
+  pointer-events: none;
+  opacity: 0.5;
+  mix-blend-mode: overlay;
+}
+
 #gl-canvas {
   position: absolute;
   top: 0;
@@ -437,9 +513,9 @@ onMounted(() => {
   width: 100vw;
   min-height: 130vh;
   mix-blend-mode: multiply;
-  animation: dots-fade 1.5s ease-out forwards;
-  animation-delay: 2s;
-  opacity: 0;
+  //animation: dots-fade 1.5s ease-out forwards;
+  animation-delay: 1s;
+  //opacity: 0;
 }
 
 @keyframes dots-fade {
