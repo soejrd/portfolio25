@@ -38,7 +38,7 @@ onMounted(() => {
     opacity: 0,
     yPercent: -50,
     ease: "power1.out",
-    delay: 1.75,
+    delay: 1.5,
   });
 });
 </script>
