@@ -1,6 +1,7 @@
 <template>
   <Nav></Nav>
   <Fab />
+  <!-- <Cursor /> -->
   <main>
     <section id="section-hero" v-reveal-header>
       <Dots />
@@ -256,7 +257,7 @@ h1 {
   background: linear-gradient(180deg, #e7e9ea 50%, #f4f4f4 100%);
   width: 100%;
   position: relative;
-  z-index: -1;
+  z-index: 0;
   &:after {
     content: "";
     position: absolute;
@@ -266,11 +267,10 @@ h1 {
     height: 100%;
     background: radial-gradient(rgba(173, 216, 237, 1) 0%, rgba(173, 216, 237, 0) 100%);
     mix-blend-mode: color;
-    //z-index: 4;
+    z-index: 5;
     opacity: 0.4;
     pointer-events: none;
     user-select: none;
-
   }
   .container {
     display: flex;
