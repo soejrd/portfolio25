@@ -197,7 +197,7 @@ function initNoise(gl) {
     void main() {
       vec2 st = gl_FragCoord.xy / u_resolution;
       float noise = random(st + u_time * 0.0001);
-      gl_FragColor = vec4(vec3(noise), 1); // 10% opacity white noise
+      gl_FragColor = vec4(vec3(noise), 0.3); // 30% opacity white noise
     }
   `;
 
@@ -499,9 +499,9 @@ onMounted(() => {
   left: 0;
   z-index: 1;
   width: 100vw;
-  min-height: 130vh;
+  height: 130vh;
   pointer-events: none;
-  opacity: 0.5;
+  opacity: 0;
   mix-blend-mode: overlay;
 }
 
@@ -511,11 +511,11 @@ onMounted(() => {
   left: 0;
   z-index: 0;
   width: 100vw;
-  min-height: 130vh;
+  height: 130vh;
   mix-blend-mode: multiply;
   //animation: dots-fade 1.5s ease-out forwards;
   animation-delay: 1s;
-  //opacity: 0;
+  opacity: 1;
 }
 
 @keyframes dots-fade {

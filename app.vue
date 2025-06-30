@@ -21,10 +21,9 @@
           <h2 class="h2" v-fade>
             Brede interesses met jke moeder lorem ipsum dolor sit amet.
           </h2>
-          <!-- <p class="p-m" v-fade>
-            Leverage the power of serverless architecture to deliver your lorem
-            ipsum dolor moeder ja noe euhef.
-          </p> -->
+          <p class="p-m" v-fade>
+            Ik vind te veel leuk om op te noemen
+          </p>
         </div>
         <Specs3 v-fade />
       </div>
@@ -146,6 +145,12 @@ $color-text-secondary: #6c7176;
 $color-text-primary: #131d28;
 $color-text-primary-color: #003270;
 
+@mixin mobile {
+  @media only screen and (max-width: 600px) {
+    @content;
+  }
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -186,6 +191,9 @@ h1 {
     font-style: normal;
     color: $color-text-primary-color;
   }
+  @include mobile {
+    font-size: 54px;
+  }
 }
 
 .p-l {
@@ -195,6 +203,10 @@ h1 {
   line-height: 42px;
 
   color: #333333;
+    @include mobile {
+    font-size: 24px;
+    line-height: 32px;
+  }
 }
 
 .v-fade-active {
@@ -227,10 +239,20 @@ h1 {
 
 #section-hero {
   height: 100vh;
+  z-index: 1;
+  position: relative;
 
   //background: linear-gradient(0deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), linear-gradient(180deg, #EFF1F1 15.85%, #D9DBDD 86.56%);
   //background: linear-gradient(180deg, #f4f4f4 100%, #ff00ff 10%);
   background: linear-gradient(180deg, #f4f4f4 50%, #e7e9ea 100%);
+
+  @include mobile {
+    height: auto;
+    min-height: 100vh;
+    .container {
+      margin-top: 100px;
+    }
+  }
 
   .hero {
     display: flex;
@@ -246,18 +268,37 @@ h1 {
     left: 0;
     width: 100vw;
     height: 30vh;
-    background: linear-gradient(180deg, transparent 0%, #e7e9ea 100%);
-    z-index: 2;
+    //background: linear-gradient(180deg, transparent 0%, #e7e9ea 100%);
+    //background: #e7e9ea;
+    //z-index: 2;
   }
 }
 
 #section-specs {
   height: auto;
   //background: linear-gradient(180deg, #f4f4f4 100%, #E7E9EA 50%);
-  background: linear-gradient(180deg, #e7e9ea 50%, #f4f4f4 100%);
+
+  //background: linear-gradient(180deg, transparent 0%, #e7e9ea 20%, #e7e9ea 50%, #f4f4f4 100%);
+  //background: linear-gradient(180deg, #e7e9ea 30%, #f4f4f4 80%, transparent 100%);
+
+  
   width: 100%;
   position: relative;
-  z-index: 0;
+  z-index: 2;
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(rgba(173, 216, 237, 1) 0%, rgba(173, 216, 237, 0) 100%);
+    mix-blend-mode: color;
+    z-index: 10;
+    opacity: 0.4;
+    pointer-events: none;
+    user-select: none;
+  }
   &:after {
     content: "";
     position: absolute;
@@ -267,7 +308,7 @@ h1 {
     height: 100%;
     background: radial-gradient(rgba(173, 216, 237, 1) 0%, rgba(173, 216, 237, 0) 100%);
     mix-blend-mode: color;
-    z-index: 5;
+    z-index: 10;
     opacity: 0.4;
     pointer-events: none;
     user-select: none;
@@ -319,9 +360,10 @@ h1 {
     display: flex;
     flex-direction: row;
     gap: 100px;
+    flex-wrap: wrap;
 
     .main {
-      width: 600px;
+      max-width: 600px;
       display: flex;
       flex-direction: column;
       gap: 30px;
@@ -382,14 +424,6 @@ h1 {
         display: flex;
         flex-direction: column;
         gap: 32px;
-        // &:hover {
-        //   li.job {
-        //     opacity: 0.3;
-        //     &:hover {
-        //       opacity: 1;
-        //     }
-        //   }
-        // }
         li.job {
           list-style: none;
           transition: all 200ms ease-out;

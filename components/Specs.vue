@@ -323,60 +323,23 @@ $blue: #616bff;
   min-height: 165px;
 
   .card {
-    background-color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.5);
     border-radius: 8px;
     padding: 32px;
     position: absolute;
     top: 0;
-    transition: all 0.3s ease;
+    //transition: all 0.3s ease;
     width: 360px;
     height: 165px;
     text-align: left;
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    border: 2px solid rgba(255, 255, 255, 1);
+    mix-blend-mode: normal;
+    backdrop-filter: blur(4px);
 
     &.selected-card {
       z-index: 10;
       /* Highest z-index for selected card */
       transform: scale(1);
-    }
-
-    &.card-adjacent-left,
-    &.card-adjacent-right {
-      z-index: 5;
-      /* Medium z-index for adjacent cards */
-      transform: scale(0.95) translateX(0);
-    }
-
-    &.card-outer-left,
-    &.card-outer-right {
-      z-index: 1;
-      /* Lowest z-index for outer cards */
-      transform: scale(0.9) translateX(0);
-    }
-
-    &.card-adjacent-left {
-      transform: scale(0.95) translateX(-20px);
-      /* Adjust translation as needed */
-    }
-
-    &.card-adjacent-right {
-      transform: scale(0.95) translateX(20px);
-      /* Adjust translation as needed */
-    }
-
-    &.card-outer-left {
-      transform: scale(0.9) translateX(-40px);
-      /* Adjust translation as needed */
-    }
-
-    &.card-outer-right {
-      transform: scale(0.9) translateX(40px);
-      /* Adjust translation as needed */
-    }
-
-    &.card:not(.selected-card) {
-      pointer-events: none;
-      /* Make unselected cards non-interactive */
     }
 
     .card-content {
