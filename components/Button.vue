@@ -252,7 +252,7 @@ a {
   z-index: 10;
 }
 
-  .button {
+.button {
   backdrop-filter: blur(2px);
   filter: drop-shadow(0px 16px 16px hsla(202, 40%, 55%, 0.2));
   transition: all 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -263,7 +263,7 @@ a {
     transform: translateY(-3px);
     &:before {
       opacity: 1;
-      background-position: 400px 0px;
+      background-position: 475px 0px;
     }
   }
   &:active {
@@ -291,29 +291,28 @@ a {
     opacity: 0;
     transition: all 600ms ease-out;
   }
-      &__profile {
-      width: 48px;
-      height: 48px;
-      border-radius: 128px;
-      background-image: url("profile.jpg");
-      background-size: cover;
-      background-repeat: no-repeat;
-      position: absolute;
-      left: 8px;
-      top: 8px;
-    }
-    &__text {
-      font-style: normal;
-      line-height: 22px;
-      font-weight: 500;
-      font-size: 18px;
-      line-height: 23px;
-      color: #000000;
-      letter-spacing: 0.01em;
-      position: absolute;
-      left: 72px;
-      top: 21px;
-    }
+  &__profile {
+    width: 48px;
+    height: 48px;
+    border-radius: 128px;
+    background-image: url("profile.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: absolute;
+    left: 8px;
+    top: 8px;
+  }
+  &__text {
+    font-style: normal;
+    line-height: 22px;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 23px;
+    color: #000000;
+    letter-spacing: 0.01em;
+    position: absolute;
+    left: 72px;
+    top: 21px;
+  }
 }
-
 </style>
