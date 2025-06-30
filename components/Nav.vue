@@ -1,7 +1,7 @@
 <template>
-  <nav ref="nav">
-    <div class="container">
-      <NuxtLink to="#">
+  <nav ref="nav" class="nav">
+    <div class="nav__container">
+      <NuxtLink class="nav__link" to="https://www.linkedin.com/in/sjoerdklatser/" target="_blank">
         Linkedin
         <svg
           width="13"
@@ -18,12 +18,12 @@
           </g>
         </svg>
       </NuxtLink>
-      <div class="meta">
-        <div class="main">
+      <div class="nav__meta">
+        <div class="nav__main">
           <p>Amsterdam</p>
           <Clock />
         </div>
-        <Toggle>p</Toggle>
+        <Toggle />
       </div>
     </div>
   </nav>
@@ -44,7 +44,7 @@ onMounted(() => {
 </script>
 
 <style lang="scss">
-nav {
+.nav {
   position: fixed;
   width: 100%;
   top: 16px;
@@ -56,7 +56,7 @@ nav {
 
   z-index: 99;
 
-  .container {
+  &__container {
     width: 100%;
     max-width: 1200px;
     padding: 12px;
@@ -75,11 +75,11 @@ nav {
       0px 1px 0px rgba(0, 0, 0, 0.02);
     backdrop-filter: blur(2px);
 
-    &:hover {
+    &:hover, &--hover {
       backdrop-filter: blur(4px);
     }
 
-    a {
+    .nav__link {
       text-decoration: none;
       color: black;
 
@@ -90,33 +90,38 @@ nav {
       background-position: 0% 100%;
       transition: all 200ms ease-out;
 
-      &:hover {
+      &:hover, &--hover {
         background: linear-gradient(#76a1e6, #76a1e6);
-        background-size: 100% 1px;
+        background-size: 80% 1px;
         background-repeat: no-repeat;
-        background-position: 0 100%;
+        background-position: 0% 100%;
         color: #3367bb;
       }
     }
 
-    .meta {
+    .nav__meta {
       display: flex;
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
       gap: 32px;
+    }
 
-      .main {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        gap: 8px;
-        opacity: 0.5;
-        transition: all 200ms;
-        &:hover {
-          opacity: 1;
-        }
+    .nav__main {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 8px;
+      opacity: 0.5;
+      transition: all 200ms;
+      
+      &:hover, &--hover {
+        opacity: 1;
       }
+    }
+
+    &--hover {
+      backdrop-filter: blur(4px);
     }
   }
 }
