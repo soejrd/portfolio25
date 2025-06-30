@@ -1,6 +1,6 @@
 <template>
-    <div class="fab">
-        <div class="fab-inner" @click="active = !active">
+    <div class="fab-menu">
+        <div class="fab-menu__button" @click="active = !active">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <mask id="mask0_2257_183" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24"
                     height="24">
@@ -14,8 +14,8 @@
             </svg>
 
         </div>
-        <div class="fab-outer" :class="{ active: active }">
-            <div v-for="i in 5" :key="i" class="fab-outer-item" @click="active = false">
+        <div class="fab-menu__items" :class="{ 'fab-menu__items--active': active }">
+            <div v-for="i in 5" :key="i" class="fab-menu__item" @click="active = false">
             </div>
         </div>
 
@@ -34,13 +34,13 @@ const active = ref(false);
     cursor: pointer;
 }
 
-.fab {
+.fab-menu {
     position: fixed;
     right: 50px;
     bottom: 50px;
     z-index: 99;
 
-    &-inner {
+    &__button {
         width: 48px;
         height: 48px;
         background-color: white;
@@ -63,14 +63,25 @@ const active = ref(false);
         }
     }
 
-    &-outer {
+    &__items {
         position: absolute;
         left: 0;
         top: 0;
 
+        &--active {
+            transform: rotate(0deg);
+            .fab-menu__item {
+                opacity: 1;
+                user-select: all;
+                @for $i from 0 through 8 {
+                    &:nth-child(#{$i}) {
+                        transform: rotate($i * 30deg - 90deg) translate(-48px, -48px);
+                    }
+                }
+            }
+        }
 
-
-        &-item {
+        &__item {
             width: 24px;
             height: 24px;
             background-color: rgb(218, 192, 158);
@@ -106,19 +117,6 @@ const active = ref(false);
             }
                         &:nth-child(5){
                 background-color: rgb(122, 163, 96);
-            }
-        }
-        &.active {
-            transform: rotate(0deg);
-            .fab-outer-item {
-                opacity: 1;
-                user-select: all;
-                @for $i from 0 through 8 {
-                &:nth-child(#{$i}) {
-                    transform: rotate($i * 30deg - 90deg) translate(-48px, -48px);
-
-                }
-            }
             }
         }
 
